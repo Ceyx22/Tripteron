@@ -7,45 +7,130 @@
   <!-- *************************************************** -->
   <!-- Note the 'origin' tag in the joints defines the
        shift and reorientation before the continuous joint
-       rotates around the 'axis'. -->
+       rotates around the 'axis'.                           -->
+  <!-- BR = Back Right
+       BL = Back Left
+       FR = FRont Right
+       FL = FRont Left                                     -->
 
   <link name="world"/>
 
-
-  <joint name="rSlider" type="fixed">
+  <!-- Start point of the legs -->
+  <!-- Right leg -->
+  <joint name="start_joint_FR" type="continuous">
     <parent link="world"/>
-    <child  link="base_link"/>
-  </joint>
-
-  <link name="base_link">				<!-- Frame with the slider -->
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>	<!-- Center of slider -->
-      <geometry>
-	<box size="0.5 0.5 0.5" />	<!-- Size of horizontal slider -->
-      </geometry>
-      <material name="magenta"/>			<!-- Color -->
-    </visual>
-  </link>
-
-  <!-- First link -->
-  <joint name="dist1" type="continuous">
-    <parent link="base_link"/>
-    <child  link="base_1"/>
-    <origin xyz="0.5 0.25 0.5 " rpy="0 0 0"/> <!-- pi/2 = 0.7854-->
+    <child  link="base_link_FR"/>
+    <origin xyz="0.2 0 0" rpy="0 0 0"/> 
     <axis   xyz="1 0 0"/>
   </joint>
 
-  <link name="base_1">				<!-- Frame with cylinder -->
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>	<!-- Center of cylinder -->
-      <geometry>
-	<cylinder radius="0.1" length='0.5' />	<!-- Size of attachment point -->
-      </geometry>
-      <material name="cyan"/>			<!-- Color -->
-    </visual>
-  </link>
+  <link name="base_link_FR"/>				
+  <!-- Left leg -->
+  <joint name="start_joint_FL" type="continuous">
+    <parent link="base_link_FR"/>
+    <child  link="base_link_FL"/>
+    <origin xyz="0 0.2 0" rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+  <link name="base_link_FL"/>				
 
-  
+  <!-- Actual limbs of legs -->
+  <!-- Left Lower Arm -->
+  <joint name="theta1" type="continuous">
+    <parent link="base_link_FR"/>
+    <child  link="rightArm_1"/>
+    <origin xyz="0.2 -0.2 0.2 " rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="rightArm_1"/>				
+  <!-- Left Upper Arm -->
+  <joint name="theta2" type="continuous">
+    <parent link="rightArm_1"/>
+    <child  link="rightArm_2"/>
+    <origin xyz="0.2 0.2 0.2 " rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="rightArm_2"/>				
+
+   <!-- FRont Left Arm -->
+   <!-- Right Lower Arm -->
+  <joint name="theta3" type="continuous">
+    <parent link="base_link_FL"/>
+    <child  link="leftArm_1"/>
+    <origin xyz="0.2 0.2 0.2 " rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="leftArm_1"/>				
+  <!-- Right Upper Arm -->
+  <joint name="theta4" type="continuous">
+    <parent link="leftArm_1"/>
+    <child  link="leftArm_2"/>
+    <origin xyz="0.2 -0.2 0.2 " rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="leftArm_2"/>				
+
+
+<!-- BackSide of Triperon -->
+<!-- Start point of the legs -->
+  <!-- Right leg -->
+  <joint name="start_joint_BR" type="continuous">
+    <parent link="world"/>
+    <child  link="base_link_BR"/>
+    <origin xyz="1.2 0 0" rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="base_link_BR"/>	
+  <!-- Left leg -->
+  <joint name="base_link_BR" type="continuous">
+    <parent link="base_link_BR"/>
+    <child  link="base_link_BL"/>
+    <origin xyz="0 0.2 0" rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="base_link_BL"/>	
+
+  <!-- Right Lower Arm -->
+  <joint name="theta5" type="continuous">
+    <parent link="base_link_BR"/>
+    <child  link="rightArm_3"/>
+    <origin xyz="-0.2 -0.2 0.2 " rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="rightArm_3"/>			
+  <!-- Right Upper Arm -->
+  <joint name="theta6" type="continuous">
+    <parent link="rightArm_3"/>
+    <child  link="rightArm_4"/>
+    <origin xyz="-0.2 0.2 0.2 " rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+  <link name="rightArm_4"/>	
+
+  <!-- Left Lower Arm -->
+  <joint name="theta7" type="continuous">
+    <parent link="base_link_BL"/>
+    <child  link="leftArm_3"/>
+    <origin xyz="-0.2 0.2 0.2 " rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="leftArm_3"/>			
+  <!-- Left Upper Arm -->
+  <joint name="theta8" type="continuous">
+    <parent link="leftArm_3"/>
+    <child  link="leftArm_4"/>
+    <origin xyz="-0.2 -0.2 0.2 " rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+  <link name="leftArm_4"/>	
 
 
   <!-- *************************************************** -->
@@ -60,12 +145,12 @@
 
   <material name="white">    <color rgba="1.00 1.00 1.00 1"/>  </material>
   <material name="gray">     <color rgba="0.60 0.60 0.60 1"/>  </material>
-  <material name="table">    <color rgba="0.85 0.77 0.77 1"/>  </material>
-  <material name="black">    <color rgba="0.00 0.00 0.00 1"/>  </material>
+  <material name="taBLe">    <color rgba="0.85 0.77 0.77 1"/>  </material>
+  <material name="BLack">    <color rgba="0.00 0.00 0.00 1"/>  </material>
 
   <material name="red">      <color rgba="1.00 0.00 0.00 1"/>  </material>
   <material name="green">    <color rgba="0.00 1.00 0.00 1"/>  </material>
-  <material name="blue">     <color rgba="0.00 0.00 1.00 1"/>  </material>
+  <material name="BLue">     <color rgba="0.00 0.00 1.00 1"/>  </material>
 
   <material name="cyan">     <color rgba="0.00 1.00 1.00 1"/>  </material>
   <material name="magenta">  <color rgba="1.00 0.00 1.00 1"/>  </material>

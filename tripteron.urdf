@@ -21,26 +21,25 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>	<!-- Center of slider -->
       <geometry>
-	<box size="1 0.2 0.3" />	<!-- Size of horizontal slider -->
+	<box size="0.5 0.5 0.5" />	<!-- Size of horizontal slider -->
       </geometry>
       <material name="magenta"/>			<!-- Color -->
     </visual>
   </link>
 
-  <!-- pulley controlling x & y pos -->
-  <joint name="dist1" type="prismatic">
+  <!-- First link -->
+  <joint name="dist1" type="continuous">
     <parent link="base_link"/>
     <child  link="base_1"/>
-    <limit effort="1000.0" lower="0" upper="20.0" velocity="0.5"/>
-    <origin xyz="-0.4 0 0.3" rpy="0 0 0"/>
+    <origin xyz="0.5 0.25 0.5 " rpy="0 0 0"/> <!-- pi/2 = 0.7854-->
     <axis   xyz="1 0 0"/>
   </joint>
 
   <link name="base_1">				<!-- Frame with cylinder -->
     <visual>
-      <origin xyz="1 2 0.5" rpy="0 0 0"/>	<!-- Center of cylinder -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>	<!-- Center of cylinder -->
       <geometry>
-	<box size="0.2 .4 .1" />	<!-- Size of attachment point -->
+	<cylinder radius="0.1" length='0.5' />	<!-- Size of attachment point -->
       </geometry>
       <material name="cyan"/>			<!-- Color -->
     </visual>

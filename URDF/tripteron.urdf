@@ -1,0 +1,287 @@
+<?xml version="1.0"?>
+
+<robot name="tripteron">
+  
+  <!-- *************************************************** -->
+  <!-- ******************** Kinematics ******************* -->
+  <!-- *************************************************** -->
+  <!-- Note the 'origin' tag in the joints defines the
+       shift and reorientation before the continuous joint
+       rotates around the 'axis'.                           -->
+  <!-- BR = Back Right
+       BL = Back Left
+       FR = FRont Right
+       FL = FRont Left 
+       PJ = Prismatic Joint 
+       SoJ = Start of joint
+       BL = Base Link                                   -->
+
+  <link name="world"/>
+
+  <!-- Start point of the legs -->
+  <!-- Right leg -->
+  <joint name="theta1_PJ" type="continuous">
+    <parent link="world"/>
+    <child  link="front_PJ"/>
+    <origin xyz="0.2 0 0" rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="front_PJ">
+    <visual>
+      <origin xyz="0.05 0.2 0.05" rpy="0 0 0"/>	<!-- Center of slider -->
+      <geometry>
+        <box size="0.1 0.4 0.1" />		
+      </geometry>
+      <material name="magenta"/>
+    </visual>
+  </link>
+
+  <!-- Actual limbs of legs -->
+  <!-- Transformation to get to the top of cube -->
+  <!-- Right Lower Arm -->
+  <joint name="frontR_SoJ" type="continuous">
+    <parent link="front_PJ"/>
+    <child  link="rightArm_1"/>
+    <origin xyz="0.1 0.1 0.1" rpy="0.7853 0.7853 0"/> 
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="rightArm_1">
+  <visual>
+      <origin xyz="0 0 0.1732" rpy="0 0 0"/>	<!-- r = pi/4  z = 0.1732/2 -->
+      <geometry>
+        <cylinder radius="0.01" length="0.3464"/>		<!-- len = norm([0.2, -0.2, 0.2]) -->
+      </geometry>
+      <material name="cyan"/>
+    </visual>
+  </link>
+  <!-- Right Upper Arm -->
+  <joint name="theta1" type="continuous">
+    <parent link="rightArm_1"/>
+    <child  link="rightArm_2"/>
+    <origin xyz="0 0 0.3464 " rpy="-1.5708 -0.7853 0"/> 
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="rightArm_2">	
+    <visual>
+      <origin xyz="0 0 0.1732" rpy="0 0 0"/>	<!-- r = pi/4  z = 0.1732/2 -->
+      <geometry>
+        <cylinder radius="0.01" length="0.3464"/>		<!-- len = norm([0.2, -0.2, 0.2]) -->
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>	
+
+  <!-- Right endeffector Arm -->
+  <joint name="theta2" type="continuous">
+    <parent link="rightArm_2"/>
+    <child  link="end1"/>
+    <origin xyz="0 0 0.3464" rpy="0 0 0"/> 
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="end1"/>				
+
+   <!-- Front Left Arm -->
+   <!-- Left Lower Arm -->
+  <joint name="frontL_SoJ" type="continuous">
+    <parent link="front_PJ"/>
+    <child  link="leftArm_1"/>
+    <origin xyz="0.1 0.3 0.1" rpy="-0.7853 0.7853 0"/> <!-- r = 3pi/4 = 2.3562   -->
+    <axis   xyz="0 0 1"/>
+  </joint>
+  <link name="leftArm_1">
+    <visual>
+      <origin xyz="0 0 0.1732" rpy="0 0 0"/>	<!-- r = pi/4  z = 0.1732/2 -->
+      <geometry>
+        <cylinder radius="0.01" length="0.3464"/>		<!-- len = norm([0.2, -0.2, 0.2]) -->
+      </geometry>
+      <material name="cyan"/>
+    </visual>
+  </link>	
+
+  <joint name="theta3" type="continuous">
+    <parent link="leftArm_1"/>
+    <child  link="leftArm_2"/>
+    <origin xyz="0 0 0.3464" rpy="1.5708 0.7853 0"/> 
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="leftArm_2">		
+  	<visual>
+      <origin xyz="0 0 0.1732" rpy="0 0 0"/>	<!-- r = pi/4  z = 0.1732/2 -->
+      <geometry>
+        <cylinder radius="0.01" length="0.3464"/>		<!-- len = norm([0.2, -0.2, 0.2]) -->
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>	
+
+  <!-- Right endeffector Arm -->
+  <joint name="theta4" type="continuous">
+    <parent link="leftArm_2"/>
+    <child  link="end2"/>
+    <origin xyz="0 0 0.3464" rpy="0 0 0"/> 
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="end2"/>				
+
+
+  <!-- BackSide of Triperon -->
+  <!-- Start point of the legs -->
+  <!-- Right leg -->
+  <joint name="theta2_PJ" type="continuous">
+    <parent link="world"/>
+    <child  link="BackR_PJ"/>
+    <origin xyz="1.2 0 0" rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="BackR_PJ">
+    <visual>
+      <origin xyz="0.05 0.1 0.05" rpy="0 0 0"/>	<!-- Center of slider -->
+      <geometry>
+        <box size="0.1 0.2 0.1" />		
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+<!-- Transformation to get to the top of cube -->
+  <!-- Right Lower Arm -->
+  <joint name="backR_SoJ" type="continuous">
+    <parent link="BackR_PJ"/>
+    <child  link="BackRightArm_1"/>
+    <origin xyz="0 0.1 0.1" rpy="0.7853 -0.7853 0"/> 
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="BackRightArm_1">	
+  <visual>
+      <origin xyz="0 0 0.1732" rpy="0 0 0"/>	<!-- r = pi/4  z = 0.1732/2 -->
+      <geometry>
+        <cylinder radius="0.01" length="0.3464"/>		
+      </geometry>
+      <material name="cyan"/>
+    </visual>
+  </link>
+  
+  <joint name="theta5" type="continuous">
+    <parent link="BackRightArm_1"/>
+    <child  link="BackRightArm_2"/>
+    <origin xyz="0 0 0.3464" rpy="-1.5708 0.7853 0"/>  <!-- -1.5708 0.7853 0 -->
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="BackRightArm_2">	
+  <visual>
+      <origin xyz="0 0 0.1732" rpy="0 0 0"/>	<!-- r = pi/4  z = 0.1732/2 -->
+      <geometry>
+        <cylinder radius="0.01" length="0.3464"/>		
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+  <!-- Right endeffector Arm -->
+  <joint name="theta6" type="continuous">
+    <parent link="BackRightArm_2"/>
+    <child  link="end3"/>
+    <origin xyz="0 0 0.3464" rpy="0 0 0"/> 
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="end3"/>	
+
+  <!-- Left Arm -->
+  <joint name="theta3_PJ" type="continuous">
+    <parent link="world"/>
+    <child  link="BackL_PJ"/>
+    <origin xyz="1.2 0.2 0" rpy="0 0 0"/> 
+    <axis   xyz="1 0 0"/>
+  </joint>
+
+  <link name="BackL_PJ">
+    <visual>
+      <origin xyz="0.05 0.1 0.05" rpy="0 0 0"/>	<!-- Center of slider -->
+      <geometry>
+        <box size="0.1 0.2 0.1" />		
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <!-- Transformation to get to the top of cube -->
+  <!-- Right Lower Arm -->
+  <joint name="backL_SoJ" type="continuous">
+    <parent link="BackL_PJ"/>
+    <child  link="BackLeftArm_1"/>
+    <origin xyz="0 0.1 0.1" rpy="-0.7853 -0.7853 0"/> 
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="BackLeftArm_1">	
+  <visual>
+      <origin xyz="0 0 0.1732" rpy="0 0 0"/>	<!-- r = pi/4  z = 0.1732/2 -->
+      <geometry>
+        <cylinder radius="0.01" length="0.3464"/>		
+      </geometry>
+      <material name="cyan"/>
+    </visual>
+  </link>
+  
+  <joint name="theta7" type="continuous">
+    <parent link="BackLeftArm_1"/>
+    <child  link="BackLeftArm_2"/>
+    <origin xyz="0 0 0.3464" rpy="1.5708 0.7853 0"/>  <!-- -1.5708 0.7853 0 -->
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="BackLeftArm_2">	
+  <visual>
+      <origin xyz="0 0 0.1732" rpy="0 0 0"/>	<!-- r = pi/4  z = 0.1732/2 -->
+      <geometry>
+        <cylinder radius="0.01" length="0.3464"/>		
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+  <!-- Left endeffector Arm -->
+  <joint name="theta8" type="continuous">
+    <parent link="BackLeftArm_2"/>
+    <child  link="end4"/>
+    <origin xyz="0 0 0.3464" rpy="0 0 0"/> 
+    <axis   xyz="0 0 1"/>
+  </joint>
+
+  <link name="end4"/>	
+  <!-- *************************************************** -->
+  <!-- ********************* Graphics ******************** -->
+  <!-- *************************************************** -->
+  <!-- The following is purely to make this look roboticy. -->
+  <!-- The 'origin' tag in the link/visual defines the
+       center of the object (box, cylinder, sphere, mesh)
+       but does not affect the joint chain kinematics. -->
+
+  <!-- *************** Materials / Colors **************** -->
+
+  <material name="white">    <color rgba="1.00 1.00 1.00 1"/>  </material>
+  <material name="gray">     <color rgba="0.60 0.60 0.60 1"/>  </material>
+  <material name="table">    <color rgba="0.85 0.77 0.77 1"/>  </material>
+  <material name="black">    <color rgba="0.00 0.00 0.00 1"/>  </material>
+
+  <material name="red">      <color rgba="1.00 0.00 0.00 1"/>  </material>
+  <material name="green">    <color rgba="0.00 1.00 0.00 1"/>  </material>
+  <material name="blue">     <color rgba="0.00 0.00 1.00 1"/>  </material>
+
+  <material name="cyan">     <color rgba="0.00 1.00 1.00 1"/>  </material>
+  <material name="magenta">  <color rgba="1.00 0.00 1.00 1"/>  </material>
+  <material name="yellow">   <color rgba="1.00 1.00 0.00 1"/>  </material>
+
+  <material name="orange">   <color rgba="1.00 0.65 0.00 1"/>  </material>
+
+
+ </robot>
+

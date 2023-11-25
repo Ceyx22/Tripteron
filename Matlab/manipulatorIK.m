@@ -9,3 +9,6 @@ axes = show(robot);
 % ylim([-5 5]);
 % zlim([-5 5]);
 axes.CameraPositionMode = 'auto';
+
+% norm([0.2, -0.2, 0.2])
+

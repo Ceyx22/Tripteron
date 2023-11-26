@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Util class-->
+    <!--                         numbers:                    -->
+    <!-- 0.1524 = 6in    --> <!-- 0.1016 = 3in   -->        
+    <!-- 0.0254 = 1in    --> <!-- 0.0127 = 0.5in -->
+
+    <xacro:property name="limbRad" value="0.0127" />
+    <xacro:property name="limbLng" value="0.1524" />
+    <xacro:property name="pltf_l" value="0.1524" />
+    <xacro:property name="pltf_w" value="0.1524" />
+    <xacro:property name="pltf_h" value="0.1016" />
+    <xacro:property name="slider_size" value="0.1016" />
+    <xacro:property name="buffer" value="0.0135" />
+    <xacro:property name="O_x" value="${(pltf_l/2) - (limbRad + buffer) }" />
+    <xacro:property name="O_y" value="${(pltf_w/2) - (limbRad + buffer) }" />
+    <xacro:property name="O_z" value="${pltf_h/2}" />
+
+
+
+    <xacro:macro name="Cube" params="size">
+     <box size="${size} ${size} ${size}"/>
+    </xacro:macro>
+    <!-- *************** Materials / Colors **************** -->
+    <material name="white">    <color rgba="1.00 1.00 1.00 1"/>  </material>
+    <material name="gray">     <color rgba="0.60 0.60 0.60 1"/>  </material>
+    <material name="table">    <color rgba="0.85 0.77 0.77 1"/>  </material>
+    <material name="black">    <color rgba="0.00 0.00 0.00 1"/>  </material>
+
+    <material name="red">      <color rgba="1.00 0.00 0.00 1"/>  </material>
+    <material name="green">    <color rgba="0.00 1.00 0.00 1"/>  </material>
+    <material name="blue">     <color rgba="0.00 0.00 1.00 1"/>  </material>
+
+    <material name="cyan">     <color rgba="0.00 1.00 1.00 1"/>  </material>
+    <material name="magenta">  <color rgba="1.00 0.00 1.00 1"/>  </material>
+    <material name="yellow">   <color rgba="1.00 1.00 0.00 1"/>  </material>
+
+    <material name="orange">   <color rgba="1.00 0.65 0.00 1"/>  </material>
+</robot>

@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+
+<robot name="tripteronBody">
+  
+<!-- *************************************************** -->
+<!-- ******************** Kinematics ******************* -->
+<!-- *************************************************** -->
+<!--                         numbers:                    -->
+<!-- 0.1524 = 6in    --> <!-- 0.1016 = 3in   -->
+<!-- 0.0254 = 1in    --> <!-- 0.0127 = 0.5in -->
+
+<!-- URDF relations to IRL are in meters-->
+     <link name="base_link">
+          <visual>
+               <origin xyz="0 0 0" rpy="0 0 0"/>	<!-- Physical Center of robot Endeffector-->
+               <geometry>
+                    <box size="0.1524 0.1524 0.1016" /> 
+               </geometry>
+               <material name="magenta"/>
+          </visual>
+     </link>
+
+<!-- ******************** ARM ONE ******************* -->
+
+     <!-- Base_link to Upper arm  -->
+     <joint name="theta1" type="continuous">
+          <parent link="base_link"/>
+          <child  link="upperArm_one"/>
+          <origin xyz="0.0500 -0.0500 -0.0508" rpy="-0.7854 -0.7854 0"/>  
+          <axis   xyz="0 0 1"/>
+     </joint>
+     
+     <link name="upperArm_one">
+          <visual>
+               <origin xyz="0 0 -0.0762" rpy="0 0 0"/>	 
+               <geometry>
+                    <cylinder radius="0.0127" length="0.1524"/> 
+               </geometry>
+               <material name="cyan"/>
+          </visual>
+     </link>
+
+     <!-- Upper arm to Lower Arm -->
+     <joint name="theta2" type="continuous">
+          <parent link="upperArm_one"/>
+          <child  link="lowerArm_one"/>
+          <origin xyz="0 0 -0.1524" rpy="-1.5708 0 0"/>  
+          <axis   xyz="1 0 0"/>
+     </joint>
+
+     <link name="lowerArm_one">
+          <visual>
+               <origin xyz="0 0 0.0762" rpy="0 0 0"/>	
+               <geometry>
+                    <cylinder radius="0.0127" length="0.1524"/> 
+               </geometry>
+               <material name="green"/>
+          </visual>
+     </link>
+
+     <!-- Lower Arm to rail attachment -->
+     <joint name="theta3" type="continuous">
+          <parent link="lowerArm_one"/>
+          <child  link="railAttach_one"/>
+          <origin xyz="0 0 0.1524" rpy="0 0 0"/>  
+          <axis   xyz="0 1 0"/>
+     </joint>
+     <link name="railAttach_one"/>
+
+<!-- ******************** ARM TWO ******************* -->
+     <!-- Base_link to Upper arm  -->
+     <joint name="theta4" type="continuous">
+          <parent link="base_link"/>
+          <child  link="upperArm_two"/>
+          <origin xyz="0.0500 0.0500 -0.0508" rpy="3.9269 -0.7854 0"/>  
+          <axis   xyz="1 0 0"/>
+     </joint>
+     
+     <link name="upperArm_two">
+          <visual>
+               <origin xyz="0 0 0.0762" rpy="0 0 0"/>	
+               <geometry>
+                    <cylinder radius="0.0127" length="0.1524"/> 
+               </geometry>
+               <material name="cyan"/>
+          </visual>
+     </link>
+
+     <!-- Upper arm to Lower Arm -->
+     <joint name="theta5" type="continuous">
+          <parent link="upperArm_two"/>
+          <child  link="lowerArm_two"/>
+          <origin xyz="0 0 0.1524" rpy="-1.5708 0 0"/>  
+          <axis   xyz="1 0 0"/>
+     </joint>
+     <link name="lowerArm_two">
+          <visual>
+               <origin xyz="0 0 0.0762" rpy="0 0 0"/>	
+               <geometry>
+                    <cylinder radius="0.0127" length="0.1524"/> 
+               </geometry>
+               <material name="green"/>
+          </visual>
+     </link>
+
+     <!-- Lower Arm to rail attachment -->
+     <joint name="theta6" type="continuous">
+          <parent link="lowerArm_two"/>
+          <child  link="railAttach_two"/>
+          <origin xyz="0 0 0.1524" rpy="0 0 0"/>  
+          <axis   xyz="0 1 0"/>
+     </joint>
+     <link name="railAttach_two"/>
+
+<!-- ******************** ARM THREE ******************* -->
+     <!-- Base_link to Upper arm  -->
+     <joint name="theta7" type="continuous">
+          <parent link="base_link"/>
+          <child  link="upperArm_three"/>
+          <origin xyz="-0.0500 -0.0500 -0.0508" rpy="2.3562 0 -0.7854"/>  <!-- Come back later to mess with the yaw  -0.7854 -->
+          <axis   xyz="1 0 0"/>
+     </joint>
+     
+     <link name="upperArm_three">
+          <visual>
+               <origin xyz="0 0 0.0762" rpy="0 0 0"/>	
+               <geometry>
+                    <cylinder radius="0.0127" length="0.1524"/>  
+               </geometry>
+               <material name="cyan"/>
+          </visual>
+     </link>
+
+     <!-- Upper arm to Lower Arm -->
+     <joint name="theta8" type="continuous">
+          <parent link="upperArm_three"/>
+          <child  link="lowerArm_three"/>
+          <origin xyz="0 0 0.1524" rpy="0 -1.0472 0"/>  
+          <axis   xyz="1 0 0"/>
+     </joint>
+     <link name="lowerArm_three">
+          <visual>
+               <origin xyz="0 0 0.0762" rpy="0 0 0"/>	
+               <geometry>
+                    <cylinder radius="0.0127" length="0.1524"/> 
+               </geometry>
+               <material name="green"/>
+          </visual>
+     </link>
+
+     <!-- Lower Arm to rail attachment -->
+     <joint name="theta9" type="continuous">
+          <parent link="lowerArm_three"/>
+          <child  link="railAttach_three"/>
+          <origin xyz="0 0 0.1524" rpy="0 0 0"/>  
+          <axis   xyz="1 0 0"/>
+     </joint>
+     <link name="railAttach_three"/>
+
+<!-- ******************** ARM FOUR ******************* -->
+     <!-- Base_link to Upper arm  -->
+     <joint name="theta10" type="continuous">
+          <parent link="base_link"/>
+          <child  link="upperArm_four"/>
+          <origin xyz="-0.0500 0.0500 -0.0508" rpy="2.3562 0 -2.3562"/>  <!-- Come back later to mess with the yaw  -0.7854 -->
+          <axis   xyz="1 0 0"/>
+     </joint>
+     
+     <link name="upperArm_four">
+          <visual>
+               <origin xyz="0 0 0.0762" rpy="0 0 0"/>	
+               <geometry>
+                    <cylinder radius="0.0127" length="0.1524"/>  
+               </geometry>
+               <material name="cyan"/>
+          </visual>
+     </link>
+
+    <!-- Upper arm to Lower Arm -->
+     <joint name="theta11" type="continuous">
+          <parent link="upperArm_four"/>
+          <child  link="lowerArm_four"/>
+          <origin xyz="0 0 0.1524" rpy="0 1.0472 0"/>  <!-- 1.0472  | 0.7854 -->
+          <axis   xyz="1 0 0"/>
+     </joint>
+     <link name="lowerArm_four">
+          <visual>
+               <origin xyz="0 0 0.0762" rpy="0 0 0"/>	
+               <geometry>
+                    <cylinder radius="0.0127" length="0.1524"/> 
+               </geometry>
+               <material name="green"/>
+          </visual>
+     </link>
+
+     <!-- Lower Arm to rail attachment -->
+     <joint name="theta12" type="continuous">
+          <parent link="lowerArm_four"/>
+          <child  link="railAttach_four"/>
+          <origin xyz="0 0 0.1524" rpy="0 0 0 "/>  <!-- 1.0472  2.3562 -1.5708  |0.7854 -1.5708 0-->
+          <axis   xyz="1 0 0"/>
+     </joint>
+     <link name="railAttach_four"/>
+
+	
+  <!-- *************************************************** -->
+  <!-- ********************* Graphics ******************** -->
+  <!-- *************************************************** -->
+  <!-- The following is purely to make this look roboticy. -->
+  <!-- The 'origin' tag in the link/visual defines the
+       center of the object (box, cylinder, sphere, mesh)
+       but does not affect the joint chain kinematics. -->
+
+  <!-- *************** Materials / Colors **************** -->
+
+  <material name="white">    <color rgba="1.00 1.00 1.00 1"/>  </material>
+  <material name="gray">     <color rgba="0.60 0.60 0.60 1"/>  </material>
+  <material name="table">    <color rgba="0.85 0.77 0.77 1"/>  </material>
+  <material name="black">    <color rgba="0.00 0.00 0.00 1"/>  </material>
+
+  <material name="red">      <color rgba="1.00 0.00 0.00 1"/>  </material>
+  <material name="green">    <color rgba="0.00 1.00 0.00 1"/>  </material>
+  <material name="blue">     <color rgba="0.00 0.00 1.00 1"/>  </material>
+
+  <material name="cyan">     <color rgba="0.00 1.00 1.00 1"/>  </material>
+  <material name="magenta">  <color rgba="1.00 0.00 1.00 1"/>  </material>
+  <material name="yellow">   <color rgba="1.00 1.00 0.00 1"/>  </material>
+
+  <material name="orange">   <color rgba="1.00 0.65 0.00 1"/>  </material>
+
+
+ </robot>
+

@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="tripteron">
     <!-- Util class-->
     <!--                         numbers:                    -->
     <!-- 0.1524 = 6in    --> <!-- 0.1016 = 3in   -->        
     <!-- 0.0254 = 1in    --> <!-- 0.0127 = 0.5in -->
 
     <xacro:property name="limbRad" value="0.0127" />
-    <xacro:property name="limbLng" value="0.1524" />
+    <xacro:property name="toplimbLng" value="0.1524" />
+    <xacro:property name="bottomlimbLng" value="0.2155" /> <!-- 0.2155  -->
     <xacro:property name="pltf_l" value="0.1524" />
     <xacro:property name="pltf_w" value="0.1524" />
     <xacro:property name="pltf_h" value="0.1016" />

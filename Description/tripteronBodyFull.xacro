@@ -23,15 +23,15 @@
      <joint name="theta1" type="continuous">
           <parent link="base_link"/>
           <child  link="upperArm_one"/>
-          <origin xyz="${O_x} -${O_y} -${O_z}" rpy="-${pi/4} -${pi/4} 0"/>  
-          <axis   xyz="0 0 1"/>
+          <origin xyz="${O_x} -${O_y} -${O_z}" rpy="-${pi/2} -${pi/4} 0"/>  
+          <axis   xyz="1 0 0"/>
      </joint>
      
      <link name="upperArm_one">
           <visual>
-               <origin xyz="0 0 -${limbLng/2}" rpy="0 0 0"/>	 
+               <origin xyz="0 0 -${toplimbLng/2}" rpy="0 0 0"/>	 
                <geometry>
-                    <cylinder radius="${limbRad}" length="${limbLng}"/> 
+                    <cylinder radius="${limbRad}" length="${toplimbLng}"/> 
                </geometry>
                <material name="cyan"/>
           </visual>
@@ -41,15 +41,15 @@
      <joint name="theta2" type="continuous">
           <parent link="upperArm_one"/>
           <child  link="lowerArm_one"/>
-          <origin xyz="0 0 -${limbLng}" rpy="-${pi/2} 0 0"/>  
+          <origin xyz="0 0 -${toplimbLng}" rpy="-${pi/4} 0 0"/>  
           <axis   xyz="1 0 0"/>
      </joint>
 
      <link name="lowerArm_one">
           <visual>
-               <origin xyz="0 0 ${limbLng/2}" rpy="0 0 0"/>	
+               <origin xyz="0 0 ${bottomlimbLng/2}" rpy="0 0 0"/>	
                <geometry>
-                    <cylinder radius="${limbRad}" length="${limbLng}"/> 
+                    <cylinder radius="${limbRad}" length="${bottomlimbLng}"/> 
                </geometry>
                <material name="green"/>
           </visual>
@@ -59,7 +59,7 @@
      <joint name="theta3" type="continuous">
           <parent link="lowerArm_one"/>
           <child  link="railAttach_one"/>
-          <origin xyz="0 0 ${limbLng}" rpy="-${pi/4} -${pi/4} -${pi/2}"/>  
+          <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} -${pi/4} -${pi/2}"/>  
           <axis   xyz="0 1 0"/>
      </joint>
      <link name="railAttach_one">
@@ -77,15 +77,15 @@
      <joint name="theta4" type="continuous">
           <parent link="base_link"/>
           <child  link="upperArm_two"/>
-          <origin xyz="${O_x} ${O_y} -${O_z}" rpy="${5*pi/4} -${pi/4} 0"/>  
+          <origin xyz="${O_x} ${O_y} -${O_z}" rpy="-${pi/2} -${pi/4} 0"/>  
           <axis   xyz="1 0 0"/>
      </joint>
      
      <link name="upperArm_two">
           <visual>
-               <origin xyz="0 0 0.0762" rpy="0 0 0"/>	
+               <origin xyz="0 0 ${toplimbLng/2}" rpy="0 0 0"/>	
                <geometry>
-                    <cylinder radius="${limbRad}" length="${limbLng}"/> 
+                    <cylinder radius="${limbRad}" length="${toplimbLng}"/> 
                </geometry>
                <material name="cyan"/>
           </visual>
@@ -95,14 +95,14 @@
      <joint name="theta5" type="continuous">
           <parent link="upperArm_two"/>
           <child  link="lowerArm_two"/>
-          <origin xyz="0 0 ${limbLng}" rpy="-${pi/2} 0 0"/>  
+          <origin xyz="0 0 ${toplimbLng}" rpy="-${3*pi/4} 0 0"/>  
           <axis   xyz="1 0 0"/>
      </joint>
      <link name="lowerArm_two">
           <visual>
-               <origin xyz="0 0 ${limbLng/2}" rpy="0 0 0"/>	
+               <origin xyz="0 0 ${bottomlimbLng/2}" rpy="0 0 0"/>	
                <geometry>
-                    <cylinder radius="${limbRad}" length="${limbLng}"/> 
+                    <cylinder radius="${limbRad}" length="${bottomlimbLng}"/> 
                </geometry>
                <material name="green"/>
           </visual>
@@ -112,7 +112,7 @@
      <joint name="theta6" type="continuous">
           <parent link="lowerArm_two"/>
           <child  link="railAttach_two"/>
-          <origin xyz="0 0 ${limbLng}" rpy="-${pi/4} ${pi/4} -${pi/2}"/>  
+          <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} ${pi/4} -${pi/2}"/>  
           <axis   xyz="0 1 0"/>
      </joint>
      <link name="railAttach_two">
@@ -130,15 +130,15 @@
      <joint name="theta7" type="continuous">
           <parent link="base_link"/>
           <child  link="upperArm_three"/>
-          <origin xyz="-${O_x} -${O_y} -${O_z}" rpy="${3*pi/4} 0 -${pi/4}"/>  <!-- Come back later to mess with the yaw  -0.7854 -->
+          <origin xyz="-${O_x} -${O_y} -${O_z}" rpy="${pi/3} ${pi/4} -${pi/4}"/>  <!-- Come back later to mess with the yaw  -${pi/4} -->
           <axis   xyz="1 0 0"/>
      </joint>
      
      <link name="upperArm_three">
           <visual>
-               <origin xyz="0 0 ${limbLng/2}" rpy="0 0 0"/>	
+               <origin xyz="0 0 ${toplimbLng/2}" rpy="0 0 0"/>	
                <geometry>
-                    <cylinder radius="${limbRad}" length="${limbLng}"/> 
+                    <cylinder radius="${limbRad}" length="${toplimbLng}"/> 
                </geometry>
                <material name="cyan"/>
           </visual>
@@ -148,14 +148,14 @@
      <joint name="theta8" type="continuous">
           <parent link="upperArm_three"/>
           <child  link="lowerArm_three"/>
-          <origin xyz="0 0 ${limbLng}" rpy="0 -${pi/3} 0"/>  
+          <origin xyz="0 0 ${toplimbLng}" rpy="-${2*pi/3} 0 ${pi}"/>  
           <axis   xyz="1 0 0"/>
      </joint>
      <link name="lowerArm_three">
           <visual>
-               <origin xyz="0 0 ${limbLng/2}" rpy="0 0 0"/>	
+               <origin xyz="0 0 ${bottomlimbLng/2}" rpy="0 0 0"/>	
                <geometry>
-                    <cylinder radius="${limbRad}" length="${limbLng}"/>  
+                    <cylinder radius="${limbRad}" length="${bottomlimbLng}"/>  
                </geometry>
                <material name="green"/>
           </visual>
@@ -165,14 +165,14 @@
      <joint name="theta9" type="continuous">
           <parent link="lowerArm_three"/>
           <child  link="railAttach_three"/>
-          <origin xyz="0 0 ${limbLng}" rpy="0 0 0"/>  
+          <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} ${pi/4} 0"/>  
           <axis   xyz="1 0 0"/>
      </joint>
      <link name="railAttach_three">
           <visual>
-               <origin xyz="0 -${slider_size/2} 0" rpy="0 0 0"/>	
+               <origin xyz="-${slider_size/2} 0 0" rpy="0 0 0"/>	
                <geometry>
-                    <xacro:Cube size="0.000001"/>
+                    <xacro:Cube size="${slider_size}"/>
                </geometry>
                <material name="red"/>
           </visual>
@@ -183,15 +183,15 @@
      <joint name="theta10" type="continuous">
           <parent link="base_link"/>
           <child  link="upperArm_four"/>
-          <origin xyz="-${O_x} ${O_y} -${O_z}" rpy="${3*pi/4} 0 -${3*pi/4}"/>  <!-- Come back later to mess with the yaw  -0.7854 -->
+          <origin xyz="-${O_x} ${O_y} -${O_z}" rpy="-${pi/3} ${pi/4} ${pi/4}"/>  <!-- Come back later to mess with the yaw  -0.7854 -->
           <axis   xyz="1 0 0"/>
      </joint>
      
      <link name="upperArm_four">
           <visual>
-               <origin xyz="0 0 ${limbLng/2}" rpy="0 0 0"/>	
+               <origin xyz="0 0 ${toplimbLng/2}" rpy="0 0 0"/>	
                <geometry>
-                    <cylinder radius="${limbRad}" length="${limbLng}"/> 
+                    <cylinder radius="${limbRad}" length="${toplimbLng}"/> 
                </geometry>
                <material name="cyan"/>
           </visual>
@@ -201,14 +201,14 @@
      <joint name="theta11" type="continuous">
           <parent link="upperArm_four"/>
           <child  link="lowerArm_four"/>
-          <origin xyz="0 0 ${limbLng}" rpy="0 ${pi/3} 0"/>  
+          <origin xyz="0 0 ${toplimbLng}" rpy="${2*pi/3} 0 ${pi}"/>  
           <axis   xyz="1 0 0"/>
      </joint>
      <link name="lowerArm_four">
           <visual>
-               <origin xyz="0 0 ${limbLng/2}" rpy="0 0 0"/>	
+               <origin xyz="0 0 ${bottomlimbLng/2}" rpy="0 0 0"/>	
                <geometry>
-                    <cylinder radius="${limbRad}" length="${limbLng}"/>  
+                    <cylinder radius="${limbRad}" length="${bottomlimbLng}"/>  
                </geometry>
                <material name="green"/>
           </visual>
@@ -218,12 +218,12 @@
      <joint name="theta12" type="continuous">
           <parent link="lowerArm_four"/>
           <child  link="railAttach_four"/>
-          <origin xyz="0 0 ${limbLng}" rpy="-${pi/10} 0 -${pi/4}"/>  <!-- rpy="${pi/3} ${3*pi/4} -${pi/2}"  |${pi/4} -${pi/2} 0-->
+          <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} ${pi/4} 0"/>  <!-- rpy="${pi/3} ${3*pi/4} -${pi/2}"  |${pi/4} -${pi/2} 0-->
           <axis   xyz="1 0 0"/>
      </joint>
      <link name="railAttach_four">
           <visual>
-               <origin xyz="0 -${slider_size/2} 0" rpy="0 0 0"/>	
+               <origin xyz="-${slider_size/2} 0 0" rpy="0 0 0"/>	
                <geometry>
                     <xacro:Cube size="${slider_size}"/>
                </geometry>

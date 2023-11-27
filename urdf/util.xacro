@@ -17,6 +17,12 @@
     <xacro:property name="O_y" value="${(pltf_w/2) - (limbRad + buffer) }" />
     <xacro:property name="O_z" value="${pltf_h/2}" />
 
+    <!-- Tempary upper and lower limits -->
+    <xacro:property name="uLim_front" value="${bottomlimbLng+toplimbLng}"/>
+    <xacro:property name="lLim_front" value="-${bottomlimbLng+toplimbLng}"/>
+    <xacro:property name="uLim_back" value="${bottomlimbLng+toplimbLng}"/>
+    <xacro:property name="lLim_back" value="-${bottomlimbLng+toplimbLng}"/>
+
 
 
     <xacro:macro name="Cube" params="size">

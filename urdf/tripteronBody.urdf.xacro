@@ -7,6 +7,15 @@
 <!-- *************************************************** -->
 <xacro:include filename="util.xacro"/>
 
+    <link name="world"/>
+
+     <joint name="base_joint" type="fixed">
+        <origin xyz="1.5 1.0 0.25" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="base_link"/>        
+    </joint>
+
+
 <!-- URDF relations to IRL are in meters-->
      <link name="base_link">
           <visual>
@@ -62,15 +71,7 @@
           <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} -${pi/4} -${pi/2}"/>  
           <axis   xyz="0 1 0"/>
      </joint>
-     <link name="railAttach_one">
-          <visual>
-               <origin xyz="0 -${slider_size/2} 0" rpy="0 0 0"/>	
-               <geometry>
-                    <xacro:Cube size="${slider_size}"/>
-               </geometry>
-               <material name="red"/>
-          </visual>
-     </link>
+     <link name="railAttach_one"/>
 
 <!-- ******************** ARM TWO ******************* -->
      <!-- Base_link to Upper arm  -->
@@ -115,16 +116,7 @@
           <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} ${pi/4} -${pi/2}"/>  
           <axis   xyz="0 1 0"/>
      </joint>
-     <link name="railAttach_two">
-          <visual>
-               <origin xyz="0 -${slider_size/2} 0" rpy="0 0 0"/>	
-               <geometry>
-                    <xacro:Cube size="${slider_size}"/>
-               </geometry>
-               <material name="red"/>
-          </visual>
-     </link>
-
+     <link name="railAttach_two"/>
 <!-- ******************** ARM THREE ******************* -->
      <!-- Base_link to Upper arm  -->
      <joint name="theta7" type="continuous">
@@ -168,15 +160,7 @@
           <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} ${pi/4} 0"/>  
           <axis   xyz="1 0 0"/>
      </joint>
-     <link name="railAttach_three">
-          <visual>
-               <origin xyz="-${slider_size/2} 0 0" rpy="0 0 0"/>	
-               <geometry>
-                    <xacro:Cube size="${slider_size}"/>
-               </geometry>
-               <material name="red"/>
-          </visual>
-     </link>
+     <link name="railAttach_three"/>
 
 <!-- ******************** ARM FOUR ******************* -->
      <!-- Base_link to Upper arm  -->
@@ -221,15 +205,7 @@
           <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} ${pi/4} 0"/>  <!-- rpy="${pi/3} ${3*pi/4} -${pi/2}"  |${pi/4} -${pi/2} 0-->
           <axis   xyz="1 0 0"/>
      </joint>
-     <link name="railAttach_four">
-          <visual>
-               <origin xyz="-${slider_size/2} 0 0" rpy="0 0 0"/>	
-               <geometry>
-                    <xacro:Cube size="${slider_size}"/>
-               </geometry>
-               <material name="red"/>
-          </visual>
-     </link>
+     <link name="railAttach_four"/>
 
  </robot>
 

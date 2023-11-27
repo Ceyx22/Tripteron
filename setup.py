@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 from glob import glob
 
-package_name = 'Tripteron'
+package_name = 'tripteron'
 
 setup(
     name=package_name,
@@ -19,7 +19,7 @@ setup(
     zip_safe=True,
     maintainer='FM',
     maintainer_email='robot@todo.todo',
-    description='Tripteron Demo',
+    description='tripteron Demo',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={

@@ -7,17 +7,8 @@
 <!-- *************************************************** -->
 <xacro:include filename="util.xacro"/>
 
-    <link name="world"/>
-
-     <joint name="base_joint" type="fixed">
-        <origin xyz="1.5 1.0 0.25" rpy="0 0 0"/>
-        <parent link="world"/>
-        <child link="base_link"/>        
-    </joint>
-
-
 <!-- URDF relations to IRL are in meters-->
-     <link name="base_link">
+     <link name="platform">
           <visual>
                <origin xyz="0 0 0" rpy="0 0 0"/>	<!-- Physical Center of robot Endeffector-->
                <geometry>
@@ -30,7 +21,7 @@
 <!-- ******************** ARM ONE ******************* -->
      <!-- Base_link to Upper arm  -->
      <joint name="theta1" type="continuous">
-          <parent link="base_link"/>
+          <parent link="platform"/>
           <child  link="upperArm_one"/>
           <origin xyz="${O_x} -${O_y} -${O_z}" rpy="-${pi/2} -${pi/4} 0"/>  
           <axis   xyz="1 0 0"/>
@@ -68,8 +59,8 @@
      <joint name="theta3" type="continuous">
           <parent link="lowerArm_one"/>
           <child  link="railAttach_one"/>
-          <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} -${pi/4} -${pi/2}"/>  
-          <axis   xyz="0 1 0"/>
+          <origin xyz="0 0 ${bottomlimbLng}" rpy="0 0 0"/>  
+          <axis   xyz="1 0 0"/>
      </joint>
      <link name="railAttach_one"/>
 
@@ -113,8 +104,8 @@
      <joint name="theta6" type="continuous">
           <parent link="lowerArm_two"/>
           <child  link="railAttach_two"/>
-          <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} ${pi/4} -${pi/2}"/>  
-          <axis   xyz="0 1 0"/>
+          <origin xyz="0 0 ${bottomlimbLng}" rpy="0 0 0"/>  
+          <axis   xyz="1 0 0"/>
      </joint>
      <link name="railAttach_two"/>
 <!-- ******************** ARM THREE ******************* -->
@@ -157,7 +148,7 @@
      <joint name="theta9" type="continuous">
           <parent link="lowerArm_three"/>
           <child  link="railAttach_three"/>
-          <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} ${pi/4} 0"/>  
+          <origin xyz="0 0 ${bottomlimbLng}" rpy="0 0 0"/>  
           <axis   xyz="1 0 0"/>
      </joint>
      <link name="railAttach_three"/>
@@ -202,7 +193,7 @@
      <joint name="theta12" type="continuous">
           <parent link="lowerArm_four"/>
           <child  link="railAttach_four"/>
-          <origin xyz="0 0 ${bottomlimbLng}" rpy="-${pi/4} ${pi/4} 0"/>  <!-- rpy="${pi/3} ${3*pi/4} -${pi/2}"  |${pi/4} -${pi/2} 0-->
+          <origin xyz="0 0 ${bottomlimbLng}" rpy="0 0 0"/>  <!-- rpy="${pi/3} ${3*pi/4} -${pi/2}"  |${pi/4} -${pi/2} 0-->
           <axis   xyz="1 0 0"/>
      </joint>
      <link name="railAttach_four"/>

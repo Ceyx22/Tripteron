@@ -1,6 +1,6 @@
 """ Launch the View publisher demo
 
-    ros2 launch tripteron viewTripteron.launch.py
+    ros2 launch tripteron tripmove.launch.py
 
 """
 
@@ -57,6 +57,13 @@ def generate_launch_description():
         output     = 'screen',
         on_exit    = Shutdown())
 
+    # Configure a node for the move demo.
+    node_tripmove = Node(
+        name       = 'tripmove',
+        package    = 'tripteron',
+        executable = 'tripmove',
+        output     = 'screen')
+
     ######################################################################
     # RETURN THE ELEMENTS IN ONE LIST
 
@@ -65,5 +72,6 @@ def generate_launch_description():
         node_robot_state_publisher,
         node_rviz,
         node_gui,
+        node_tripmove,
 
     ])

@@ -38,7 +38,7 @@ def generate_launch_description():
     # Configure a node for the boolean_publisher.
     node_publisher = Node(
         name       = 'boolean',
-        package    = 'demos',
+        package    = 'tripteron',
         executable = 'boolean_publisher',
         output     = 'screen',
         on_exit    = Shutdown())

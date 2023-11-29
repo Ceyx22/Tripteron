@@ -5,7 +5,7 @@ package_name = 'tripteron'
 
 setup(
     name=package_name,
-    version='0.0.1',
+    version='0.0.0',
     packages=find_packages(exclude=['test']),
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -14,19 +14,21 @@ setup(
         ('share/' + package_name + '/launch', glob('launch/*')),
         ('share/' + package_name + '/rviz',   glob('rviz/*')),
         ('share/' + package_name + '/urdf',   glob('urdf/*')),
+        ('share/' + package_name + '/tripteron',   glob('tripteron/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='FM',
+    maintainer='robot',
     maintainer_email='robot@todo.todo',
-    description='tripteron Demo',
+    description='The 133a Project Code Demos',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'boolean_publisher = Util.boolean_publisher:main',
-            'float_publisher   = Util.float_publisher:main',
-            'point_publisher   = Util.point_publisher:main',
+            'boolean_publisher = tripteron.boolean_publisher:main',
+            'float_publisher   = tripteron.float_publisher:main',
+            'point_publisher   = tripteron.point_publisher:main',
+            'tripmove          = tripteron.tripmove:main',
         ],
     },
 )

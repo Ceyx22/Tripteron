@@ -15,6 +15,7 @@ setup(
         ('share/' + package_name + '/rviz',   glob('rviz/*')),
         ('share/' + package_name + '/urdf',   glob('urdf/*')),
         ('share/' + package_name + '/tripteron',   glob('tripteron/*')),
+        ('share/' + package_name + '/util',   glob('util/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -25,10 +26,11 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'boolean_publisher = tripteron.boolean_publisher:main',
-            'float_publisher   = tripteron.float_publisher:main',
-            'point_publisher   = tripteron.point_publisher:main',
+            'boolean_publisher = util.boolean_publisher:main',
+            'float_publisher   = util.float_publisher:main',
+            'point_publisher   = util.point_publisher:main',
             'tripmove          = tripteron.tripmove:main',
+            'basic             = tripteron.tripmove:main',
         ],
     },
 )

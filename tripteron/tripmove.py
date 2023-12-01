@@ -19,16 +19,7 @@ from tf2_ros                    import TransformBroadcaster
 from geometry_msgs.msg          import TransformStamped
 from sensor_msgs.msg            import JointState
 
-from tripteron.TransformHelpers     import *
-
-
-#
-#   Tripteron Joint Names
-#
-# jointnames = ['theta1', 'theta2', 'theta3',
-#               'theta4', 'theta5', 'theta6',
-#               'theta7', 'theta8', 'theta9',
-#               'theta10', 'theta11', 'theta12']
+from util.TransformHelpers     import *
 
 
 #
@@ -69,8 +60,8 @@ class DemoNode(Node):
         # integrate to get the current time.
         self.t += self.dt
         # Compute position/orientation of the pelvis (w.r.t. world).
-        Pplatform = pxyz(0.0, 0.1, 0.1 + 0.2 * sin(self.t/2))
-        Rplatform = Rotz(sin(self.t))
+        Pplatform = pxyz(0.0, 0.1, 0.1 + 0.2) # stay in one spot
+        Rplatform = Rotz(0)
         Tplatform = T_from_Rp(Rplatform, Pplatform)
 
         # Build up and send the platform w.r.t. World Transform!
@@ -81,22 +72,7 @@ class DemoNode(Node):
         trans.transform       = Transform_from_T(Tplatform)
         self.broadcaster.sendTransform(trans)
 
-        # Compute the joints.
-        # q    = np.zeros((len(jointnames), 1))
-        # qdot = np.zeros((len(jointnames), 1))
-
-        # i_relbow = jointnames.index('r_arm_elx')
-
-        # q[i_relbow,0]     = - pi/2 + pi/8 * sin(2*self.t)
-        # qdot[i_relbow, 0] =          pi/4 * cos(2*self.t)
-
-        # # Build up a command message and publish.
-        # cmdmsg = JointState()
-        # cmdmsg.header.stamp = self.now().to_msg()       # Current time for ROS
-        # cmdmsg.name         = jointnames                # List of names
-        # cmdmsg.position     = q.flatten().tolist()      # List of positions
-        # cmdmsg.velocity     = qdot.flatten().tolist()   # List of velocities
-        # self.pub.publish(cmdmsg)
+        
 #
 #  Main Code
 #

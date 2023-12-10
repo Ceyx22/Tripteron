@@ -61,8 +61,8 @@ class DemoNode(Node):
         # integrate to get the current time.
         self.t += self.dt
         # Compute position/orientation of the pelvis (w.r.t. world).
-        Pplatform = pxyz(0.4,0.4, 0.15) # stay in one spot
-        Rplatform = Rotz(0)
+        Pplatform = pxyz(0.0, 0.0, 0.15) # stay in one spot
+        Rplatform = Rotz(pi)
         Tplatform = T_from_Rp(Rplatform, Pplatform)
 
         # Build up and send the platform w.r.t. World Transform!

@@ -1,0 +1,41 @@
+digraph G {
+node [shape=box];
+"platform" [label="platform"];
+"upperArm_one" [label="upperArm_one"];
+"lowerArm_one" [label="lowerArm_one"];
+"railAttach_one" [label="railAttach_one"];
+"upperArm_four" [label="upperArm_four"];
+"lowerArm_four" [label="lowerArm_four"];
+"railAttach_four" [label="railAttach_four"];
+"upperArm_two" [label="upperArm_two"];
+"lowerArm_two" [label="lowerArm_two"];
+"railAttach_two" [label="railAttach_two"];
+"upperArm_three" [label="upperArm_three"];
+"lowerArm_three" [label="lowerArm_three"];
+"railAttach_three" [label="railAttach_three"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"platform" -> "theta1" [label="xyz: 0.05 -0.05 -0.0508 \nrpy: -1.5708 -0.785398 0"]
+"theta1" -> "upperArm_one"
+"upperArm_one" -> "theta2" [label="xyz: 0 0 -0.1524 \nrpy: -0.785398 0 0"]
+"theta2" -> "lowerArm_one"
+"lowerArm_one" -> "theta3" [label="xyz: 0 0 0.1524 \nrpy: 0 -0 0"]
+"theta3" -> "railAttach_one"
+"platform" -> "theta10" [label="xyz: -0.05 0.05 -0.0508 \nrpy: -1.0472 0.785398 0.785398"]
+"theta10" -> "upperArm_four"
+"upperArm_four" -> "theta11" [label="xyz: 0 0 0.1524 \nrpy: 2.0944 -0 3.14159"]
+"theta11" -> "lowerArm_four"
+"lowerArm_four" -> "theta12" [label="xyz: 0 0 0.1524 \nrpy: 0 -0 0"]
+"theta12" -> "railAttach_four"
+"platform" -> "theta4" [label="xyz: 0.05 0.05 -0.0508 \nrpy: -1.5708 -0.785398 0"]
+"theta4" -> "upperArm_two"
+"upperArm_two" -> "theta5" [label="xyz: 0 0 0.1524 \nrpy: -2.35619 0 0"]
+"theta5" -> "lowerArm_two"
+"lowerArm_two" -> "theta6" [label="xyz: 0 0 0.1524 \nrpy: 0 -0 0"]
+"theta6" -> "railAttach_two"
+"platform" -> "theta7" [label="xyz: -0.05 -0.05 -0.0508 \nrpy: 1.0472 0.785398 -0.785398"]
+"theta7" -> "upperArm_three"
+"upperArm_three" -> "theta8" [label="xyz: 0 0 0.1524 \nrpy: -2.0944 -0 3.14159"]
+"theta8" -> "lowerArm_three"
+"lowerArm_three" -> "theta9" [label="xyz: 0 0 0.1524 \nrpy: 0 -0 0"]
+"theta9" -> "railAttach_three"
+}

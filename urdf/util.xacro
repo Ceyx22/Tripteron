@@ -7,7 +7,7 @@
 
     <xacro:property name="limbRad" value="0.0127" />
     <xacro:property name="toplimbLng" value="0.1524" />
-    <xacro:property name="bottomlimbLng" value="0.2155" /> <!-- 0.2155  -->
+    <xacro:property name="bottomlimbLng" value="0.1524" /> <!-- 0.2155  -->
     <xacro:property name="pltf_l" value="0.1524" />
     <xacro:property name="pltf_w" value="0.1524" />
     <xacro:property name="pltf_h" value="0.1016" />

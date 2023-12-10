@@ -143,7 +143,7 @@ class GeneratorNode(Node):
         if not (isinstance(q[0], float) and isinstance(qdot[0], float)):
             self.get_logger().warn("Flatten NumPy arrays before making lists!")
             return
-        self.debuglog()
+        # self.debuglog()
         self.bodyUpdate(now)
         # Build up a command message and publish.
         cmdmsg = JointState()

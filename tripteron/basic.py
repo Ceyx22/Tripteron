@@ -20,27 +20,28 @@ class Trajectory():
         self.FLchain = KinematicChain(node, 'platform', 'railAttach_two', self.jointnames("frontleft"))
         self.BRchain = KinematicChain(node, 'platform', 'railAttach_three', self.jointnames("backright"))
         self.BLchain = KinematicChain(node, 'platform', 'railAttach_four', self.jointnames("backleft"))
-        self.kin = kinematic()
-        self.platformP0 = pxyz(0,0,0)
-        self.target = pxyz(0.4,0.4, 0.15) 
+        # self.kin = kinematic()
+        self.platformP = pxyz(0.4,0.4,0.15)
+        # self.target = pxyz(0.4,0.0, 0.15) 
+        d0 = self.calc_L(self.platformP)
+        print(d0)
+        # self.q = np.radians(np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).reshape((-1,1)))
+        self.q = np.radians(np.array([0, 0, 0, 0, 0, 0, 0, 0]).reshape((-1,1)))
+        
+        
+        (self.pd_FR, self.Rd_FR, _, _) = self.FRchain.fkin(self.q[0:2])
 
-        self.q_FR = np.zeros((3,1))
-        (self.pd_FR, self.Rd_FR, _, _) = self.FRchain.fkin(self.q_FR)
-        self.p0_FR = self.pd_FR
-
-        self.q_FL = np.zeros((3,1))
-        (self.pd_FL, self.Rd_FL, _, _) = self.FLchain.fkin(self.q_FL)
-
-        self.q_BR = np.zeros((3,1))
-        (self.pd_BR, self.Rd_BR, _, _) = self.BRchain.fkin(self.q_BR)
-
-        self.q_BL = np.zeros((3,1))
-        (self.pd_BL, self.Rd_BL, _, _) = self.BLchain.fkin(self.q_BL)
-
-        self.vd = np.zeros((3,1))
-        self.q = np.zeros((12,1))
-        self.qdot= np.zeros((12,1))
+        # (self.pd_FL, self.Rd_FL, _, _) = self.FLchain.fkin(self.q_FL)
+        # (self.pd_BR, self.Rd_BR, _, _) = self.BRchain.fkin(self.q_BR)
+        # (self.pd_BL, self.Rd_BL, _, _) = self.BLchain.fkin(self.q_BL)
         self.lam = 20.0
+        self.p0_FR = self.pd_FR
+        # pxyz(self.platformP[0][0]-d0[0][0], 0.25, -0.127)
+        self.p0_FL = pxyz(d0[0][0], -0.1, 0)
+
+        self.p0_BR = pxyz(d0[1][0], 0.1, 0)
+        self.p0_BL = pxyz(d0[2][0], -0.1, 0)
+        # self.pd_FR = self.p0_FR
         # self.node = node
         # self.q0 = np.radians(np.array([0, 0, 0, 0, 0, 0]).reshape((-1,1)))
 
@@ -48,107 +49,118 @@ class Trajectory():
     def jointnames(self, arm):
         # ask gunter about wether the last joint should be fixed
         if arm == 'frontright':
-            return ['theta1', 'theta2', 'theta3'] # , 'theta3'
+            return ['theta1', 'theta2'] # , 'theta3'
         elif arm == 'frontleft':
-            return ['theta4', 'theta5', 'theta6'] # , 'theta6'
+            return ['theta4', 'theta5'] # , 'theta6'
         elif arm == 'backright':
-            return ['theta7', 'theta8', 'theta9'] # , 'theta9'
+            return ['theta7', 'theta8'] # , 'theta9'
         elif arm == 'backleft':
-            return ['theta10', 'theta11', 'theta12']# , 'theta12'
+            return ['theta10', 'theta11']# , 'theta12'
         elif arm == "all":
-            return ['theta1', 'theta2', 'theta3','theta4', 'theta5', 'theta6', 
-                'theta7', 'theta8', 'theta9', 'theta10', 'theta11', 'theta12']
+            return ['theta1', 'theta2','theta4', 'theta5', 
+                'theta7', 'theta8', 'theta10', 'theta11']
+        # if arm == 'frontright':
+        #     return ['theta1', 'theta2', 'theta3'] # , 'theta3'
+        # elif arm == 'frontleft':
+        #     return ['theta4', 'theta5', 'theta6'] # , 'theta6'
+        # elif arm == 'backright':
+        #     return ['theta7', 'theta8', 'theta9'] # , 'theta9'
+        # elif arm == 'backleft':
+        #     return ['theta10', 'theta11', 'theta12']# , 'theta12'
+        # elif arm == "all":
+        #     return ['theta1', 'theta2', 'theta3','theta4', 'theta5', 'theta6', 
+        #         'theta7', 'theta8', 'theta9', 'theta10', 'theta11', 'theta12']
 
     def bodyTrajectory(self, t):
         # Compute position/orientation of the pelvis (w.r.t. world).
         # go in circle relative to x y plane
         # Pplatform = pxyz(0.4+0.05*sin(t),0.4+ 0.05*cos(t), 0.15) 
-        Pplatform = self.platformP0 
+        Pplatform = self.platformP 
         Rplatform = Rotz(0)
         Tplatform = T_from_Rp(Rplatform, Pplatform)
 
         return Transform_from_T(Tplatform)
-
-
-
-
-        # vr = vd
-
-
-        return None
-    # def get_pd (self):
-    #     (p1, _, _, _) = self.FRchain.fkin(np.zeros((3,1)))
-    #     (p2, _, _, _) = self.FLchain.fkin(np.zeros((3,1)))
-    #     (p3, _, _, _) = self.BRchain.fkin(np.zeros((3,1)))
-    #     (p4, _, _, _) = self.BLchain.fkin(np.zeros((3,1)))
-    #     return np.vstack((p1+self.offset,p2+self.offset,p3+self.offset, p4+self.offset))
-        
-    # def joints (self):
-    #     self.pd_FR
-    #     P_legone = pxyz(self.p0_FR[0][0],self.p0_FR[1][0], self.p0_FR[2][0])
-    #     R_legone = Rotz(0)
-    #     T_legone = T_from_Rp(R_legone, P_legone)
-    #     return Transform_from_T(T_legone) 
        
     def debug (self):
-        # FLchainTest = KinematicChain(node, 'world', 'railAttach_two', self.jointnames("frontleft"))
-        # (ptip, _, _, _) = self.FLchain.fkin(self.q[:3, 0])
-        # (p1, _, _, _) = self.FRchain.fkin(np.array([-np.pi/2, -3*np.pi/4, -3*np.pi/4, ]).reshape(3,1))
-        # (p1, _, _, _) = self.FRchain.fkin(np.zeros((3,1)))
-        # (p2, _, _, _) = self.FLchain.fkin(np.zeros((3,1)))
-        # (p3, _, _, _) = self.BRchain.fkin(np.zeros((3,1)))
-        # (p4, _, _, _) = self.BLchain.fkin(np.zeros((3,1)))
-        # ptip = np.vstack((p1+self.offset,p2,p3, p4))
-        return self.kin.legOne(self.pd_FR)       
+        # self.kin.legOne(self.pd_FR)
+        return self.pd_FR
+        
+    def calc_L(self, platform):
+        # P_xyz = platform xyz
+        T = np.array([[0, 1 , -1],
+                     [-1, 1 , 1],
+                     [1, 1 , 1]])
+        
+        return T @ platform
+    def Jac(self, q):
+        theta1 = q[0][0]
+        theta2 = q[1][0]
+        l = 0.1524
+        J = np.array([[-l*sin(theta1)/sqrt(2), -l*sin(theta2)/sqrt(2)],
+                     [(l**2 * sin(theta1+theta2))/(2*sqrt(l**2-l**2 * cos(theta1+theta2))), (l**2 * sin(theta1+theta2))/(2*sqrt(l**2-l**2 * cos(theta1+theta2)))]])
+        return J
 
-    def newtonRaphson(self, pd):
-        # Collect the distance to goal and change in q every step!
-        # xdistance = []
-        # qstepsize = []
-        max_iter = 20
-
-        # Set the initial joint value guess.
-        # q = np.array([0.0, np.pi/2, -np.pi/2]).reshape(3,1)
-        for i in range(max_iter):
-            (p, R, Jv, Jw) = self.FRchain.fkin(self.q_FR)
-            e = pe(p,pd)
-            dist = np.linalg.norm(e)
-            # xdistance.append(dist)
-            if dist < 1e-12:
-                break 
+    def T_mat(self):
+        T_from_Rp(R_from_RPY(-pi/2, -pi/4,0), pxyz(0, 0, 0.1524))
+        return None
     
-            joint_step = self.q_FR + np.dot(np.linalg.pinv(Jv), e)
-            # qstepsize.append(np.linalg.norm(joint_step - q))
-            self.q_FR = joint_step
-
-            # Jinv = np.linalg.pinv(Jv)
-
-            # qdot = Jinv @ (v + self.lam * e)
-            # self.q += qdot * dt
 
     def evaluate(self, t, dt):
+        dist = self.calc_L(self.platformP)
+        #same target position
+        legTargetOne = pxyz(dist[0][0], 0.550, 0)
+        legTargetTwo = pxyz(dist[0][0], -0.1, 0)
+
+        legTargetThree = pxyz(dist[1][0], 0.1, 0)
+        legTargetFour = pxyz(dist[2][0], -0.1, 0)
         
         # Compute the joints.
-        # pd, pv = goto(t, 2, self.p0, self.target)
+        # t1 = (t) % 2.0
+        if t < 3:
+            pd, vd = goto(t, 3, self.p0_FR, legTargetOne)
+            # pP, Vd = goto(t1, 2, )
+            # self.platformP = pxyz(0.4,0.4,0.15)
+        else:
+            return None
+            # pd, vd = goto(t1, 2, legTargetOne, self.p0_FR)
+        # pd, pv = goto(t, 2, self.p0_FL, legTargetTwo)
+        # pd, pv = goto(t, 2, self.p0_BR, legTargetThree)
+        # pd, pv = goto(t, 2, self.p0_BL, legTargetFour)
+        
+        
+        # print(R)
         # lam = self.lam
         # qlast = self.q_FR
         # xdlast = self.xdFR
 
-        # (p, R, Jv, Jw) = self.FRchain.fkin(self.q_FR)
+        q_FR = self.q[0:2] 
+        pd_FR = self.pd_FR
+        (p, R, Jv, Jw) = self.FRchain.fkin(q_FR)
+        Pplatform = self.platformP 
+        Rplatform = Rotz(pi)
+        Tplatform = T_from_Rp(Rplatform, Pplatform)@T_from_Rp(R, p)
+        p = p_from_T(Tplatform)
+        print(p_from_T(Tplatform))
+        # print(self.p0_FR)
+        # Compute the inverse kinematics
+        vr   = vd + self.lam * (pd_FR - p)
+        J = np.vstack((Jv, Jw))
+        # print(J)
+        qdot = np.linalg.pinv(Jv) @ vr
 
-        # x_error = xp - x_current
-        # J = Jac(self.q) 
-        # J_inv = np.linalg.pinv(J)
-        # qdot = J_inv @ (Jv + (lam * x_error))
-        # # qdot = np.linalg.solve(J, v_desired + lambda_value * x_error)
-        # self.q += qdot * dt
-        # self.newtonRaphson(pd)
-        # current postion
+        # Integrate the joint position.
+        q = q_FR + dt * qdot
+        # qdot = np.radians(np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).reshape((-1,1)))
+        # Save the joint value and desired position for the next cycle.
+        # qdot= np.vstack(qdot, np.array([0, 0, 0, 0, 0, 0, 0, 0]).reshape((-1,1)))
         
-        # dist
+        # print(q)
+        self.q[0:2]  = q
+        self.pd_FR = pd
 
-    
-        return (self.q.flatten().tolist(), self.qdot.flatten().tolist())
+
+        return (self.q.flatten().tolist(), qdot.flatten().tolist())
+
 
 #
 #  Main Code

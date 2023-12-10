@@ -106,79 +106,16 @@ class kinematic():
     #         return
     #     theta_2 = acos((top_limb_sq + bottom_limb_sq - m)/ (2 * self.top_limb * self.bottom_limb))
 
-
-
-    def fkin(q):
-        return None
-        # # Temporary upper and lower limits
-        # uLim_front = bottomlimbLng + toplimbLng
-        # lLim_front = -(bottomlimbLng + toplimbLng)
-        # uLim_back = bottomlimbLng + toplimbLng
-        # lLim_back = -(bottomlimbLng + toplimbLng)
-        # # Define the symbolic variables for the joint parameters and link lengths
-        # # d, theta2, theta3, theta4, a1, a2, a3 = sp.symbols('d theta2 theta3 theta4 a1 a2 a3')
-
-        # # Define the transformation matrix for the prismatic joint
-        # T1 = T_from_Rp(np.eye(3), pxyz(d, 2, 0))
-
-        # # Define the transformation matrices for the revolute joints
-        # T2 = T_from_Rp(Rotx(theta2), pxyz(a1, 0, 0))
-        # T3 = T_from_Rp(Roty(theta3), pxyz(a2, 0, 0))
-        # T4 = T_from_Rp(Rotz(theta4), pxyz(a3, 0, 0))
-
-        # # Combine the transformations to get the final transformation matrix
-        # T_final = T1 @ T2 @ T3 @ T4
-
-    def legOne (self,p):
-        # chain from leg one to platform 
-        #prist
-        p_lowerArm_one = p
-        R_lowerArm_one = Rotz(0)
-        T_lowerArm_one_visual = T_from_Rp(R_lowerArm_one, p_lowerArm_one)
-
-        # Transform for joint theta2 (lowerArm_one to upperArm_one)
-        R_theta2 = R_from_URDF_rpy([pi/4, 0, 0])  # Inverse rotation
-        p_theta2 = p_from_URDF_xyz([0, 0, self.toplimbLng])  # Inverse translation
-        T_theta2 = T_from_Rp(R_theta2, p_theta2)
-
-        # Transform for upperArm_one visual (centered in the middle of the cylinder)
-        p_upperArm_one = p_from_URDF_xyz([0, 0, self.toplimbLng/2])
-        R_upperArm_one = R_from_URDF_rpy([0, 0, 0])
-        T_upperArm_one_visual = T_from_Rp(R_upperArm_one, p_upperArm_one)
-
-        # Transform for joint theta1 (upperArm_one to platform)
-        R_theta1 = R_from_URDF_rpy([pi/2, pi/4, 0])  # Inverse rotation
-        p_theta1 = p_from_URDF_xyz([-self.O_x, self.O_y, self.O_z])  # Inverse translation
-        T_theta1 = T_from_Rp(R_theta1, p_theta1)
-        # Combine transformations to get the transform from the end-effector to the base
-        T_base_from_end_effector = T_lowerArm_one_visual @ T_theta2 @ T_upperArm_one_visual @ T_theta1
-        return T_base_from_end_effector
     
-    # def legOneF (self,p):
-    #     # chain from leg one to platform 
-    #     #prist
-    #     p_lowerArm_one = p
-    #     R_lowerArm_one = Rotz(0)
-    #     T_lowerArm_one_visual = T_from_Rp(R_lowerArm_one, p_lowerArm_one)
 
-    #     # Transform for joint theta2 (lowerArm_one to upperArm_one)
-    #     R_theta2 = R_from_URDF_rpy([pi/4, 0, 0])  # Inverse rotation
-    #     p_theta2 = p_from_URDF_xyz([0, 0, self.toplimbLng])  # Inverse translation
-    #     T_theta2 = T_from_Rp(R_theta2, p_theta2)
-
-    #     # Transform for upperArm_one visual (centered in the middle of the cylinder)
-    #     p_upperArm_one = p_from_URDF_xyz([0, 0, self.toplimbLng/2])
-    #     R_upperArm_one = R_from_URDF_rpy([0, 0, 0])
-    #     T_upperArm_one_visual = T_from_Rp(R_upperArm_one, p_upperArm_one)
-
-    #     # Transform for joint theta1 (upperArm_one to platform)
-    #     R_theta1 = R_from_URDF_rpy([pi/2, pi/4, 0])  # Inverse rotation
-    #     p_theta1 = p_from_URDF_xyz([-self.O_x, self.O_y, self.O_z])  # Inverse translation
-    #     T_theta1 = T_from_Rp(R_theta1, p_theta1)
-    #     # Combine transformations to get the transform from the end-effector to the base
-    #     T_base_from_end_effector = T_lowerArm_one_visual @ T_theta2 @ T_upperArm_one_visual @ T_theta1
-    #     return T_base_from_end_effector
-
+    def calc_L(self, platform):
+        # P_xyz = platform xyz
+        T = np.array([[0, 1 , 1],
+                     [-1, 1 , 1],
+                     [-1, 1 , 1]])
+        
+        return T * platform
+    
     # def IK_legOne():
     #     # Transform for lowerArm_one visual (centered in the middle of the cylinder)
     #     # This is just a translation along the z-axis

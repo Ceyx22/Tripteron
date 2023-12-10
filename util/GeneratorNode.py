@@ -26,9 +26,11 @@
 import rclpy
 import numpy as np
 
-from asyncio            import Future
-from rclpy.node         import Node
-from sensor_msgs.msg    import JointState
+from asyncio                    import Future
+from rclpy.node                 import Node
+from sensor_msgs.msg            import JointState
+from tf2_ros                    import TransformBroadcaster
+from geometry_msgs.msg          import TransformStamped
 
 
 #
@@ -48,9 +50,10 @@ class GeneratorNode(Node):
         # Initialize the node, naming it as specified
         super().__init__(name)
 
+        self.broadcaster = TransformBroadcaster(self)
         # Set up a trajectory.
         self.trajectory = Trajectory(self)
-        self.jointnames = self.trajectory.jointnames()
+        self.jointnames = self.trajectory.jointnames('all')
 
         # Add a publisher to send the joint commands.
         self.pub = self.create_publisher(JointState, '/joint_states', 10)
@@ -95,6 +98,20 @@ class GeneratorNode(Node):
         else:
             self.get_logger().info("Stopping: Interrupted")
 
+    def bodyUpdate(self, now):
+        Pplatform = self.trajectory.bodyTrajectory(self.t)
+        # Build up and send the platform w.r.t. World Transform!
+        trans = TransformStamped()
+        trans.header.stamp    = now.to_msg()
+        trans.header.frame_id = 'world'
+        trans.child_frame_id  = 'platform'
+        trans.transform       = Pplatform
+        self.broadcaster.sendTransform(trans)
+        
+    def debuglog (self):
+        ptip = self.trajectory.debug()
+        self.get_logger().info(f"Theta inverses: {ptip}")
+
 
     # Update - send a new joint command every time step.
     def update(self):
@@ -110,6 +127,7 @@ class GeneratorNode(Node):
         if desired is None:
             self.future.set_result("Trajectory has ended")
             return
+        
         (q, qdot) = desired
 
         # Check the results.
@@ -125,7 +143,8 @@ class GeneratorNode(Node):
         if not (isinstance(q[0], float) and isinstance(qdot[0], float)):
             self.get_logger().warn("Flatten NumPy arrays before making lists!")
             return
-
+        self.debuglog()
+        self.bodyUpdate(now)
         # Build up a command message and publish.
         cmdmsg = JointState()
         cmdmsg.header.stamp = now.to_msg()      # Current time for ROS

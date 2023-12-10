@@ -1,6 +1,6 @@
 """ Launch the View publisher demo
 
-    ros2 launch tripteron tripmove.launch.py
+    ros2 launch tripteron basic.launch.py
 
 """
 
@@ -48,18 +48,10 @@ def generate_launch_description():
         output     = 'screen',
         arguments  = ['-d', rvizcfg],
         on_exit    = Shutdown())
-    
-    # Configure a node for the GUI.
-    node_gui = Node(
-        name       = 'gui', 
-        package    = 'joint_state_publisher_gui',
-        executable = 'joint_state_publisher_gui',
-        output     = 'screen',
-        on_exit    = Shutdown())
 
     # Configure a node for the move demo.
-    node_basic = Node(
-        name       = 'basic',
+    node_trajectory = Node(
+        name       = 'trajectory', 
         package    = 'tripteron',
         executable = 'basic',
         output     = 'screen')
@@ -71,7 +63,6 @@ def generate_launch_description():
         # Register the delayed events first.
         node_robot_state_publisher,
         node_rviz,
-        node_gui,
-        node_basic,
+        node_trajectory,
 
     ])

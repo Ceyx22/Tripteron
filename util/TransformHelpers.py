@@ -42,11 +42,18 @@
                     ez()            Unit z-axis
                     exyz(x,y,z)     Unit vector
 
-   Rotation Matrix  Reye()          Identity rotation matrix
-                    Rotx(alpha)     Rotation matrix about x-axis
+   Rotation Matrix  Rotx(alpha)     Rotation matrix about x-axis
                     Roty(alpha)     Rotation matrix about y-axis
                     Rotz(alpha)     Rotation matrix about z-axis
                     Rote(e, alpha)  Rotation matrix about unit vector e
+
+                    Reye()          Identity rotation matrix
+                    Rmid(R0,R1)     Return rotation halfway  between R0,R1
+
+   Interpolation    pinter(p0,p1,s)     Positon  factor s between p0,p1
+                    Rinter(R0,R1,s)     Rotation factor s between R0,R1 
+                    vinter(p0,p1,sdot)  Linear  velocity for pinter(p0,p1,s)
+                    winter(R0,R1,sdot)  Angular velocity for Rinter(R0,R1,s)
 
    Error Vectors    ep(pd, p)       Translational error vector
                     eR(Rd, R)       Rotational error vector
@@ -58,8 +65,12 @@
    Quaternions      R_from_quat(quat)   Convert quaternion to R
                     quat_from_R(R)      Convert R to quaternion
 
-   URDF Elements    T_from_URDF_origin(origin)   Construct transform
-                    e_from_URDF_axis(axis)       Construct axis vector
+   Axis/Angle       axisangle_from_R(R) Convert R to (axis,angle)
+
+   Roll/Pitch/Yaw   R_from_RPY(roll, pitch, yaw)    Construct R
+
+   URDF Elements    T_from_URDF_origin(origin)      Construct transform
+                    e_from_URDF_axis(axis)          Construct axis vector
 
    From ROS Msgs    p_from_Point(point)             Create p from a Point
                     p_from_Vector3(vector3)         Create p from a Vector3
@@ -148,6 +159,28 @@ def Rote(e, alpha):
     return np.eye(3) + np.sin(alpha) * ex + (1.0-np.cos(alpha)) * ex @ ex
 
 
+def Rmid(R0, R1):
+    return Rslerp(R0, R1, 0.5)
+
+
+#
+#   Linear Interpolation (both linear and angular)
+#
+def pinter(p0, p1, s):
+    return p0 + (p1-p0)*s
+
+def vinter(p0, p1, sdot):
+    return      (p1-p0)*sdot
+
+def Rinter(R0, R1, s):
+    (axis, angle) = axisangle_from_R(R0.T @ R1)
+    return R0 @ Rote(axis, s*angle)
+
+def winter(R0, R1, sdot): 
+    (axis, angle) = axisangle_from_R(R0.T @ R1)
+    return R0 @ axis * angle * sdot
+
+
 #
 #   3x1 Error Vectors
 #
@@ -208,17 +241,43 @@ def quat_from_R(R):
 
 
 #
+#   Axis/Angle
+#
+#   Pull the axis/angle from the rotation matrix.  For numberical
+#   stability, go through the quaternion representation.
+#
+def axisangle_from_R(R):
+    quat  = quat_from_R(R)
+    n     = np.sqrt(quat[1]**2 + quat[2]**2 + quat[3]**2)
+    angle = 2.0 * np.arctan2(n, quat[0])
+    if n==0: axis = np.zeros((3,1))
+    else:    axis = np.array(quat[1:4]).reshape((3,1)) / n
+    return (axis, angle)
+
+#
+#   Roll/Pitch/Yaw
+#
+#   Build a rotation matrix from roll/pitch/yaw angles.  These are
+#   extrinsic Tait-Bryson rotations ordered roll(x)-pitch(y)-yaw(z).
+#   To compute via the rotation matrices, we use the equivalent
+#   intrinsic rotations in the reverse order.
+#
+def R_from_RPY(roll, pitch, yaw):
+    return Rotz(yaw) @ Roty(pitch) @ Rotx(roll)
+
+
+#
 #   URDF <origin> element
 #
 #   The <origin> element should contain "xyz" and "rpy" attributes:
 #     origin.xyz  x/y/z coordinates of the position
-#     origin.rpy  Euler angles for roll/pitch/yaw or x/y/z rotations
+#     origin.rpy  Angles for roll/pitch/yaw or x/y/z extrinsic rotations
 #
 def p_from_URDF_xyz(xyz):
     return np.array(xyz).reshape((3,1))
 
 def R_from_URDF_rpy(rpy):
-    return Rotz(rpy[2]) @ Roty(rpy[1]) @ Rotx(rpy[0])
+    return R_from_RPY(rpy[0], rpy[1], rpy[2])
 
 def T_from_URDF_origin(origin):
     return T_from_Rp(R_from_URDF_rpy(origin.rpy), p_from_URDF_xyz(origin.xyz))
@@ -291,6 +350,19 @@ def Pose_from_T(T):
 def Transform_from_T(T):
     return Transform(translation = Vector3_from_p(p_from_T(T)),
                      rotation    = Quaternion_from_R(R_from_T(T)))
+
+
+
+#
+#   3x1 Error Vectors
+#
+def ep(pd, p):
+    return (pd - p)
+
+def eR(Rd, R):
+    return 0.5 * (cross(R[0:3,0:1], Rd[0:3,0:1]) +
+                  cross(R[0:3,1:2], Rd[0:3,1:2]) +
+                  cross(R[0:3,2:3], Rd[0:3,2:3]))
 
 
 #

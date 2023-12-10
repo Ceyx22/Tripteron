@@ -30,7 +30,9 @@ setup(
             'float_publisher   = util.float_publisher:main',
             'point_publisher   = util.point_publisher:main',
             'tripmove          = tripteron.tripmove:main',
-            'basic             = tripteron.tripmove:main',
+            'basic             = tripteron.basic:main',
+            'tripmoveadv       = tripteron.tripmoveadv:main',
+
         ],
     },
 )

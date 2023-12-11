@@ -9,21 +9,23 @@
     <link name="world"/>
 
     <joint name="base_joint" type="fixed">
-        <origin xyz="1.5 1.0 0.25" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <parent link="world"/>
         <child link="base_link"/>        
     </joint>
 
 <!-- URDF relations to IRL are in meters-->
-     <link name="base_link">
-          <visual>
-               <origin xyz="0 0 0" rpy="0 0 0"/>	<!-- Physical Center of robot Endeffector-->
+     <link name="base_link"> 
+     <link name="platform">
+     <visual>
                <geometry>
-                    <box size="${pltf_l} ${pltf_w} ${pltf_h}" /> 
+                    <box size="0.2 0.2 0.2" /> 
                </geometry>
                <material name="magenta"/>
           </visual>
      </link>
+     </link>
+     
 
 <!-- ******************** ARM ONE ******************* -->
      <!-- Base_link to Upper arm  -->
@@ -243,4 +245,3 @@
      </link>
 
  </robot>
-

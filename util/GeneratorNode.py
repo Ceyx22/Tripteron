@@ -103,7 +103,7 @@ class GeneratorNode(Node):
         # Build up and send the platform w.r.t. World Transform!
         trans = TransformStamped()
         trans.header.stamp    = now.to_msg()
-        trans.header.frame_id = 'world'
+        trans.header.frame_id = 'base_link'
         trans.child_frame_id  = 'platform'
         trans.transform       = Pplatform
         self.broadcaster.sendTransform(trans)

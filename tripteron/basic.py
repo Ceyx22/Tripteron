@@ -16,49 +16,32 @@ from tripteron.Kinematic          import kinematic
 class Trajectory():
     def __init__(self, node):
         # TODO: Rename the tips in the URDF to a better name
-        self.FRchain = KinematicChain(node, 'platform', 'railAttach_one', self.jointnames("frontright"))
-        self.FLchain = KinematicChain(node, 'platform', 'railAttach_two', self.jointnames("frontleft"))
-        self.BRchain = KinematicChain(node, 'platform', 'railAttach_three', self.jointnames("backright"))
-        self.BLchain = KinematicChain(node, 'platform', 'railAttach_four', self.jointnames("backleft"))
+        self.FRchain = KinematicChain(node, 'base_link', 'railAttach_one', self.jointnames("frontright"))
+        self.FLchain = KinematicChain(node, 'base_link', 'railAttach_two', self.jointnames("frontleft"))
+        self.BRchain = KinematicChain(node, 'base_link', 'railAttach_three', self.jointnames("backright"))
+        self.BLchain = KinematicChain(node, 'base_link', 'railAttach_four', self.jointnames("backleft"))
         # self.kin = kinematic()
         self.platformP = pxyz(0.4,0.4,0.15)
-        # self.target = pxyz(0.4,0.0, 0.15) 
-        d0 = self.calc_L(self.platformP)
-        print(d0)
+        
+        self.platformP0 = self.platformP
+
         # self.q = np.radians(np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).reshape((-1,1)))
-        self.q = np.radians(np.array([0, 0, 0, 0, 0, 0, 0, 0]).reshape((-1,1)))
-        
-        
-        (self.pd_FR, self.Rd_FR, _, _) = self.FRchain.fkin(self.q[0:2])
-
-        # (self.pd_FL, self.Rd_FL, _, _) = self.FLchain.fkin(self.q_FL)
-        # (self.pd_BR, self.Rd_BR, _, _) = self.BRchain.fkin(self.q_BR)
-        # (self.pd_BL, self.Rd_BL, _, _) = self.BLchain.fkin(self.q_BL)
-        self.lam = 20.0
-        self.p0_FR = self.pd_FR
-        # pxyz(self.platformP[0][0]-d0[0][0], 0.25, -0.127)
-        self.p0_FL = pxyz(d0[0][0], -0.1, 0)
-
-        self.p0_BR = pxyz(d0[1][0], 0.1, 0)
-        self.p0_BL = pxyz(d0[2][0], -0.1, 0)
-        # self.pd_FR = self.p0_FR
-        # self.node = node
-        # self.q0 = np.radians(np.array([0, 0, 0, 0, 0, 0]).reshape((-1,1)))
+        self.q = np.radians(np.array([-pi/2, -pi/4, 0, -pi/2, -3*pi/4, 0, pi/3, -2*pi/3, 0, -pi/3, 2*pi/3, 0]).reshape((-1,1)))
 
     # Declare the joint names.
     def jointnames(self, arm):
         # ask gunter about wether the last joint should be fixed
         if arm == 'frontright':
-            return ['theta1', 'theta2'] # , 'theta3'
+            return ['theta1', 'theta2', 'theta3'] # , 'theta3'
         elif arm == 'frontleft':
-            return ['theta4', 'theta5'] # , 'theta6'
+            return ['theta4', 'theta5', 'theta6'] # , 'theta6'
         elif arm == 'backright':
-            return ['theta7', 'theta8'] # , 'theta9'
+            return ['theta7', 'theta8', 'theta9'] # , 'theta9'
         elif arm == 'backleft':
-            return ['theta10', 'theta11']# , 'theta12'
+            return ['theta10', 'theta11', 'theta12']# , 'theta12'
         elif arm == "all":
-            return ['theta1', 'theta2','theta4', 'theta5', 
-                'theta7', 'theta8', 'theta10', 'theta11']
+            return ['theta1', 'theta2', 'theta3', 'theta4', 'theta5', 'theta6', 
+                'theta7', 'theta8', 'theta9', 'theta10', 'theta11', 'theta12']
         # if arm == 'frontright':
         #     return ['theta1', 'theta2', 'theta3'] # , 'theta3'
         # elif arm == 'frontleft':
@@ -87,17 +70,17 @@ class Trajectory():
         
     def calc_L(self, platform):
         # P_xyz = platform xyz
-        T = np.array([[0, 1 , -1],
-                     [-1, 1 , 1],
+        T = np.array([[1, 0 , -1],
+                     [1, -1 , 1],
                      [1, 1 , 1]])
         
         return T @ platform
-    def Jac(self, q):
-        theta1 = q[0][0]
-        theta2 = q[1][0]
+    def Jac(self, theta1, theta2):
+        
         l = 0.1524
+        #print(theta1, theta2)
         J = np.array([[-l*sin(theta1)/sqrt(2), -l*sin(theta2)/sqrt(2)],
-                     [(l**2 * sin(theta1+theta2))/(2*sqrt(l**2-l**2 * cos(theta1+theta2))), (l**2 * sin(theta1+theta2))/(2*sqrt(l**2-l**2 * cos(theta1+theta2)))]])
+                     [(l**2 * sin(theta1+theta2))/(2*sqrt(l**2-l**2 * cos(pi - (theta1+theta2)))), (l**2 * sin(theta1+theta2))/(2*sqrt(l**2-l**2 * cos(pi - (theta1+theta2))))]])
         return J
 
     def T_mat(self):
@@ -106,57 +89,64 @@ class Trajectory():
     
 
     def evaluate(self, t, dt):
-        dist = self.calc_L(self.platformP)
+        l1, l2, l3 = self.calc_L(self.platformP).flatten().tolist()
+        l2 -= 0.55
+        l3 -=0.1
+        x,y,z = self.platformP.flatten().tolist()
         #same target position
-        legTargetOne = pxyz(dist[0][0], 0.550, 0)
-        legTargetTwo = pxyz(dist[0][0], -0.1, 0)
+        legTargetOne = pxyz(-(y - l1), 0.550,0)
+        legTargetTwo = pxyz(-(y - l1),-0.1, 0)
 
-        legTargetThree = pxyz(dist[1][0], 0.1, 0)
-        legTargetFour = pxyz(dist[2][0], -0.1, 0)
+        legTargetThree = pxyz( -l2 + y,0.1, 0)
+        legTargetFour = pxyz( -l3+  y,-0.1, 0)
+        
+        legTargets = [legTargetOne, legTargetTwo, legTargetThree, legTargetFour]
         
         # Compute the joints.
         # t1 = (t) % 2.0
-        if t < 3:
-            pd, vd = goto(t, 3, self.p0_FR, legTargetOne)
-            # pP, Vd = goto(t1, 2, )
-            # self.platformP = pxyz(0.4,0.4,0.15)
+        if t < 10:
+            pd = self.platformP0 + pxyz(0.1*sin(t*5), 0.25*sin(t*7.5)*exp(-t/3), t/50)
+            vd = pxyz( 0.5*cos(5*t),exp(-t) * (7.5*cos(7.5*t) - sin(7.5*t)), 1)
         else:
-            return None
-            # pd, vd = goto(t1, 2, legTargetOne, self.p0_FR)
-        # pd, pv = goto(t, 2, self.p0_FL, legTargetTwo)
-        # pd, pv = goto(t, 2, self.p0_BR, legTargetThree)
-        # pd, pv = goto(t, 2, self.p0_BL, legTargetFour)
+            pd = self.platformP0 + pxyz(sin(10)*exp(-10), 0, 10/50)
+            vd = pxyz(0, 0, 0)
+        T = np.matrix([
+           [0, 1, -1],
+           [-1, 1, 1],
+           [1, 1, 1]
+        ])
         
+        qupdate = []
+        qupdatedot = []
+        #print(self.q)
+        for i, target in enumerate(legTargets):
+            q1, q2 = self.q.flatten().tolist()[3*i: 3*(i) + 2]
+            J = self.Jac(q1, q2)
+            q12dot = np.linalg.inv(J) @ vd[:2]
+            q12 = np.array([q1, q2]).reshape(-1, 1) +  q12dot * dt
+            q3 = target.flatten()[0] # slider pos solved with the T matrix
+            q3dot = vd.flatten()[0] # estimating y vel as qslider dot
+            
+            q12 = q12.flatten()
+            #qupdate.append(q12[0])
+            #qupdate.append(q12[1])
+            qupdate.append(q1)
+            qupdate.append(q2)
+            qupdate.append(q3)
+            
+            q12dot = q12dot.flatten()
+            #qupdatedot.append(q12dot[0])
+            #qupdatedot.append(q12dot[1])
+            qupdatedot.append(0)
+            qupdatedot.append(0)
+            qupdatedot.append(q3dot)
+        #print(qupdate)
+            
         
-        # print(R)
-        # lam = self.lam
-        # qlast = self.q_FR
-        # xdlast = self.xdFR
-
-        q_FR = self.q[0:2] 
-        pd_FR = self.pd_FR
-        (p, R, Jv, Jw) = self.FRchain.fkin(q_FR)
-        Pplatform = self.platformP 
-        Rplatform = Rotz(pi)
-        Tplatform = T_from_Rp(Rplatform, Pplatform)@T_from_Rp(R, p)
-        p = p_from_T(Tplatform)
-        print(p_from_T(Tplatform))
-        # print(self.p0_FR)
-        # Compute the inverse kinematics
-        vr   = vd + self.lam * (pd_FR - p)
-        J = np.vstack((Jv, Jw))
-        # print(J)
-        qdot = np.linalg.pinv(Jv) @ vr
-
-        # Integrate the joint position.
-        q = q_FR + dt * qdot
-        # qdot = np.radians(np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).reshape((-1,1)))
-        # Save the joint value and desired position for the next cycle.
-        # qdot= np.vstack(qdot, np.array([0, 0, 0, 0, 0, 0, 0, 0]).reshape((-1,1)))
+        self.q = np.array(qupdate).reshape((-1, 1))
+        qdot = np.array(qupdatedot).reshape((-1, 1))
         
-        # print(q)
-        self.q[0:2]  = q
-        self.pd_FR = pd
+        self.platformP = pd
 
 
         return (self.q.flatten().tolist(), qdot.flatten().tolist())

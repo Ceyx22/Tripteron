@@ -13,7 +13,7 @@
     <joint name="right_slider_1" type="prismatic">
         <parent link="base"/>
         <child  link="right_railAttach_one"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${slider_size/2}" rpy="0 0 0"/>
         <axis   xyz="1 0 0"/>
         <limit effort="1000.0" lower="0.0" upper="2.0" velocity="0.5"/>
     </joint>
@@ -31,15 +31,15 @@
     <joint name="right_theta_1" type="continuous">
         <parent link="right_railAttach_one"/>
         <child  link="right_lower_arm"/>
-        <origin xyz="0 0 ${slider_size}" rpy="0 ${pi/4} 0"/>
+        <origin xyz="0 0 ${slider_size/2}" rpy="0 ${pi/4} 0"/>
         <axis   xyz="1 0 0"/>
     </joint>
     
     <link name="right_lower_arm">
         <visual>
-            <origin xyz="0 0 -${toplimbLng/2}" rpy="0 0 0"/>	 
+            <origin xyz="0 0 ${bottomlimbLng/2}" rpy="0 0 0"/>	 
             <geometry>
-                <cylinder radius="${limbRad}" length="${toplimbLng}"/> 
+                <cylinder radius="${limbRad}" length="${bottomlimbLng}"/> 
             </geometry>
             <material name="cyan"/>
         </visual>
@@ -47,17 +47,17 @@
     <joint name="right_theta_2" type="continuous">
         <parent link="right_lower_arm"/>
         <child  link="right_upper_arm"/>
-        <origin xyz="0 0 ${slider_size}" rpy="0 -${pi/4} 0"/>
+        <origin xyz="0 0 ${bottomlimbLng}" rpy="0 0 0"/>
         <axis   xyz="1 0 0"/>
     </joint>
     
     <link name="right_upper_arm">
         <visual>
-            <origin xyz="0 0 -${toplimbLng/2}" rpy="0 0 0"/>	 
+            <origin xyz="0 0 ${toplimbLng/2}" rpy="0 0 0"/>	 
             <geometry>
                 <cylinder radius="${limbRad}" length="${toplimbLng}"/> 
             </geometry>
-            <material name="cyan"/>
+            <material name="green"/>
         </visual>
     </link>
     

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="tripteron">
 
-    <xacro:property name="limbRad" value="0.0127" />
-    <xacro:property name="toplimbLng" value="0.1524" />
-    <xacro:property name="bottomlimbLng" value="0.1524" />
-    <xacro:property name="pltf_l" value="0.1524" />
-    <xacro:property name="pltf_w" value="0.1524" />
-    <xacro:property name="pltf_h" value="0.1016" />
-    <xacro:property name="slider_size" value="0.1016" />
+    <xacro:property name="limbRad" value="0.013" />
+    <xacro:property name="toplimbLng" value="0.15" />
+    <xacro:property name="bottomlimbLng" value="0.15" />
+    <xacro:property name="pltf_l" value="0.15" />
+    <xacro:property name="pltf_w" value="0.15" />
+    <xacro:property name="pltf_h" value="0.10" />
+    <xacro:property name="slider_size" value="0.10" />
     <xacro:property name="buffer" value="0.0135" />
     <xacro:property name="O_x" value="${(pltf_l/2) - (limbRad + buffer) }" />
     <xacro:property name="O_y" value="${(pltf_w/2) - (limbRad + buffer) }" />

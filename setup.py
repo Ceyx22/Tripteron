@@ -13,9 +13,9 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', glob('launch/*')),
         ('share/' + package_name + '/rviz',   glob('rviz/*')),
-        ('share/' + package_name + '/urdf',   glob('urdf/*')),
         ('share/' + package_name + '/tripteron',   glob('tripteron/*')),
         ('share/' + package_name + '/util',   glob('util/*')),
+        ('share/' + package_name + '/robotDescription',   glob('robotDescription/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -32,7 +32,6 @@ setup(
             'tripmove          = tripteron.tripmove:main',
             'basic             = tripteron.basic:main',
             'tripmoveadv       = tripteron.tripmoveadv:main',
-
         ],
     },
 )

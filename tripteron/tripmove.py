@@ -31,20 +31,14 @@ class DemoNode(Node):
     def __init__(self, name, rate):
         # Initialize the node, naming it as specified
         super().__init__(name)
+        # Add a publisher to send the joint commands.
+        self.pub = self.create_publisher(JointState, '/joint_states', 10)
 
-        # Initialize the transform broadcaster
-        self.broadcaster = TransformBroadcaster(self)
-
-        # Set up the timing so (t=0) will occur in the first update
-        # cycle (dt) from now.
-        self.dt    = 1.0 / float(rate)
-        self.t     = -self.dt
-        self.start = self.get_clock().now() + Duration(seconds=self.dt)
-
-        # Create a timer to keep calling update().
-        self.create_timer(self.dt, self.update)
-        self.get_logger().info("Running with dt of %f seconds (%fHz)" %
-                               (self.dt, rate))
+        # Wait for a connection to happen.  This isn't necessary, but
+        # means we don't start until the rest of the system is ready.
+        self.get_logger().info("Waiting for a /joint_states subscriber...")
+        while(not self.count_subscribers('/joint_states')):
+            pass
 
     # Shutdown.
     def shutdown(self):
@@ -54,24 +48,31 @@ class DemoNode(Node):
     # Return the current time (in ROS format).
     def now(self):
         return self.start + Duration(seconds=self.t)
+    
+    def jointnames(self):
+        # ask gunter about wether the last joint should be fixed
+        
+        return ['right_slider_1', 'right_theta_1', 'right_theta_2'] # , 'theta3'
 
-    # Update - send a new joint command every time step.
+        
     def update(self):
         # To avoid any time jitter enforce a constant time step and
         # integrate to get the current time.
         self.t += self.dt
-        # Compute position/orientation of the pelvis (w.r.t. world).
-        Pplatform = pxyz(0.0, 0.0, 0.15) # stay in one spot
-        Rplatform = Rotz(pi)
-        Tplatform = T_from_Rp(Rplatform, Pplatform)
 
-        # Build up and send the platform w.r.t. World Transform!
-        trans = TransformStamped()
-        trans.header.stamp    = self.now().to_msg()
-        trans.header.frame_id = 'world'
-        trans.child_frame_id  = 'platform'
-        trans.transform       = Transform_from_T(Tplatform)
-        self.broadcaster.sendTransform(trans)
+        q    = np.zeros((3, 1))
+        qdot = np.zeros((3, 1))
+
+        q[0,0]     = - pi/2 + pi/8 * sin(2*self.t)
+        qdot[0,0] =          pi/4 * cos(2*self.t)
+
+        # Build up a command message and publish.
+        cmdmsg = JointState()
+        cmdmsg.header.stamp = self.now().to_msg()       # Current time for ROS
+        cmdmsg.name         = self.jointnames()         # List of names
+        cmdmsg.position     = q.flatten().tolist()      # List of positions
+        cmdmsg.velocity     = qdot.flatten().tolist()   # List of velocities
+        self.pub.publish(cmdmsg)
 
         
 #

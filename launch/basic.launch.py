@@ -24,7 +24,7 @@ def generate_launch_description():
     ######################################################################
     # LOCATE FILES
     pkg_name = 'tripteron'
-    file_subpath = 'urdf/tripteronBodyFull.urdf.xacro'
+    file_subpath = 'robotDescription/tripteronBodyFull.urdf.xacro'
     xacro_file = os.path.join(pkgdir(pkg_name),file_subpath)
     robot_description_raw = xacro.process_file(xacro_file).toxml()
     rvizcfg = os.path.join(pkgdir(pkg_name), 'rviz/viewrobot.rviz')

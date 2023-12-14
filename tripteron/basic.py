@@ -42,22 +42,8 @@ class Trajectory():
         elif arm == "all":
             return ['theta1', 'theta2', 'theta3', 'theta4', 'theta5', 'theta6', 
                 'theta7', 'theta8', 'theta9', 'theta10', 'theta11', 'theta12']
-        # if arm == 'frontright':
-        #     return ['theta1', 'theta2', 'theta3'] # , 'theta3'
-        # elif arm == 'frontleft':
-        #     return ['theta4', 'theta5', 'theta6'] # , 'theta6'
-        # elif arm == 'backright':
-        #     return ['theta7', 'theta8', 'theta9'] # , 'theta9'
-        # elif arm == 'backleft':
-        #     return ['theta10', 'theta11', 'theta12']# , 'theta12'
-        # elif arm == "all":
-        #     return ['theta1', 'theta2', 'theta3','theta4', 'theta5', 'theta6', 
-        #         'theta7', 'theta8', 'theta9', 'theta10', 'theta11', 'theta12']
 
     def bodyTrajectory(self, t):
-        # Compute position/orientation of the pelvis (w.r.t. world).
-        # go in circle relative to x y plane
-        # Pplatform = pxyz(0.4+0.05*sin(t),0.4+ 0.05*cos(t), 0.15) 
         Pplatform = self.platformP 
         Rplatform = Rotz(0)
         Tplatform = T_from_Rp(Rplatform, Pplatform)

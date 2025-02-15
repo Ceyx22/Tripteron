@@ -1,0 +1,1 @@
+/home/ceyx/Documents/tripteron/launch/tripmove.launch.py

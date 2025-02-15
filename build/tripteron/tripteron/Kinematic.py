@@ -1,0 +1,1 @@
+/home/ceyx/Documents/tripteron/tripteron/Kinematic.py

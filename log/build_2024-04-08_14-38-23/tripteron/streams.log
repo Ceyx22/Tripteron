@@ -1,0 +1,60 @@
+[0.531s] Invoking command in '/home/ceyx/Documents/tripteron/build/tripteron': PYTHONPATH=/home/ceyx/Documents/tripteron/build/tripteron/prefix_override:/home/ceyx/Documents/tripteron/install/tripteron/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/ceyx/Documents/tripteron/build/tripteron/build --no-deps symlink_data
+[0.744s] running develop
+[0.744s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[0.744s]   warnings.warn(
+[0.860s] running egg_info
+[0.861s] creating tripteron.egg-info
+[0.861s] writing tripteron.egg-info/PKG-INFO
+[0.861s] writing dependency_links to tripteron.egg-info/dependency_links.txt
+[0.861s] writing entry points to tripteron.egg-info/entry_points.txt
+[0.861s] writing requirements to tripteron.egg-info/requires.txt
+[0.861s] writing top-level names to tripteron.egg-info/top_level.txt
+[0.861s] writing manifest file 'tripteron.egg-info/SOURCES.txt'
+[0.862s] reading manifest file 'tripteron.egg-info/SOURCES.txt'
+[0.863s] writing manifest file 'tripteron.egg-info/SOURCES.txt'
+[0.864s] running build_ext
+[0.865s] Creating /home/ceyx/Documents/tripteron/install/tripteron/lib/python3.10/site-packages/tripteron.egg-link (link to .)
+[0.866s] Installing basic script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+[0.866s] Installing boolean_publisher script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+[0.866s] Installing float_publisher script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+[0.867s] Installing point_publisher script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+[0.867s] Installing tripmove script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+[0.867s] Installing tripmoveadv script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+[0.867s] 
+[0.867s] Installed /home/ceyx/Documents/tripteron/build/tripteron
+[0.867s] running symlink_data
+[0.867s] creating /home/ceyx/Documents/tripteron/install/tripteron/share/ament_index
+[0.867s] creating /home/ceyx/Documents/tripteron/install/tripteron/share/ament_index/resource_index
+[0.867s] creating /home/ceyx/Documents/tripteron/install/tripteron/share/ament_index/resource_index/packages
+[0.867s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/resource/tripteron -> /home/ceyx/Documents/tripteron/install/tripteron/share/ament_index/resource_index/packages
+[0.867s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/package.xml -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron
+[0.867s] creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+[0.867s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/point_publisher.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+[0.867s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/tripmove.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+[0.867s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/basic.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+[0.867s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/float_publisher.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+[0.867s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/boolean_publisher.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+[0.867s] creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/rviz
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/rviz/viewmarkers.rviz -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/rviz
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/rviz/viewrobot.rviz -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/rviz
+[0.868s] creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/basic.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/KinematicChain.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/tripmoveadv.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/tripmove.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/Kinematic.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+[0.868s] creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/point_publisher.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/GeneratorNode.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/float_publisher.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/boolean_publisher.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/TrajectoryUtils.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/TransformHelpers.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+[0.868s] creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteronBodyTest2.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteronBodyFull.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteron.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteronBody.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+[0.868s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteronBodyTest.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+[0.869s] symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/util.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+[0.914s] Invoked command in '/home/ceyx/Documents/tripteron/build/tripteron' returned '0': PYTHONPATH=/home/ceyx/Documents/tripteron/build/tripteron/prefix_override:/home/ceyx/Documents/tripteron/install/tripteron/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/ceyx/Documents/tripteron/build/tripteron/build --no-deps symlink_data

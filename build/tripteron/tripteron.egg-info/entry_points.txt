@@ -1,0 +1,8 @@
+[console_scripts]
+basic = tripteron.basic:main
+boolean_publisher = util.boolean_publisher:main
+float_publisher = util.float_publisher:main
+point_publisher = util.point_publisher:main
+tripmove = tripteron.tripmove:main
+tripmoveadv = tripteron.tripmoveadv:main
+

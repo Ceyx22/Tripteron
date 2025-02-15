@@ -1,0 +1,58 @@
+running develop
+/usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+running egg_info
+creating tripteron.egg-info
+writing tripteron.egg-info/PKG-INFO
+writing dependency_links to tripteron.egg-info/dependency_links.txt
+writing entry points to tripteron.egg-info/entry_points.txt
+writing requirements to tripteron.egg-info/requires.txt
+writing top-level names to tripteron.egg-info/top_level.txt
+writing manifest file 'tripteron.egg-info/SOURCES.txt'
+reading manifest file 'tripteron.egg-info/SOURCES.txt'
+writing manifest file 'tripteron.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/ceyx/Documents/tripteron/install/tripteron/lib/python3.10/site-packages/tripteron.egg-link (link to .)
+Installing basic script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+Installing boolean_publisher script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+Installing float_publisher script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+Installing point_publisher script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+Installing tripmove script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+Installing tripmoveadv script to /home/ceyx/Documents/tripteron/install/tripteron/lib/tripteron
+
+Installed /home/ceyx/Documents/tripteron/build/tripteron
+running symlink_data
+creating /home/ceyx/Documents/tripteron/install/tripteron/share/ament_index
+creating /home/ceyx/Documents/tripteron/install/tripteron/share/ament_index/resource_index
+creating /home/ceyx/Documents/tripteron/install/tripteron/share/ament_index/resource_index/packages
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/resource/tripteron -> /home/ceyx/Documents/tripteron/install/tripteron/share/ament_index/resource_index/packages
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/package.xml -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron
+creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/point_publisher.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/tripmove.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/basic.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/float_publisher.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/launch/boolean_publisher.launch.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/launch
+creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/rviz
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/rviz/viewmarkers.rviz -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/rviz
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/rviz/viewrobot.rviz -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/rviz
+creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/basic.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/KinematicChain.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/tripmoveadv.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/tripmove.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/tripteron/Kinematic.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/tripteron
+creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/point_publisher.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/GeneratorNode.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/float_publisher.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/boolean_publisher.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/TrajectoryUtils.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/util/TransformHelpers.py -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/util
+creating /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteronBodyTest2.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteronBodyFull.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteron.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteronBody.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/tripteronBodyTest.urdf.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
+symbolically linking /home/ceyx/Documents/tripteron/build/tripteron/robotDescription/util.xacro -> /home/ceyx/Documents/tripteron/install/tripteron/share/tripteron/robotDescription
